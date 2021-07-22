@@ -1,0 +1,36 @@
+{
+  "name": "crm-app",
+  "private": true,
+  "version": "1.0.0",
+  "author": {
+    "name": "Ibrahima DANSOKO",
+    "email": "ibrahima.dansoko@outlook.com"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn lint && yarn tests"
+    }
+  },
+  "scripts": {
+    "tests": "lerna run test --stream",
+    "pretty-quick": "lerna run pretty-quick",
+    "lint": "lerna run lint",
+    "lintfix": "lerna run lintfix",
+    "dev-api": "lerna run start:dev --scope crm-api --stream",
+    "dev-app": "lerna run start --scope app --stream --npm-client=yarn",
+    "bootstrap": "npx lerna bootstrap",
+    "build": "lerna run build"
+  },
+  "dependencies": {
+    "husky": "^7.0.1",
+    "pm2": "^5.1.0"
+  },
+  "engines": {
+    "node": "14.16.1",
+    "yarn": "1.22.10"
+  }
+}
