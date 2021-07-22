@@ -12,7 +12,7 @@
 ```
 Mono Repo with Lerna 
 api => NestJS [TypeScript] with Postgres  [BDD]
-app => Anuglar with Angular material  [UI]
+app => Nest.JS with Redux for store 🔥  [UI]
 ```
 # Start Projet & Script
 ```shell script
