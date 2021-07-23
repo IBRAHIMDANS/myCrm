@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { UsersService } from "../users/users.service";
 import { JwtService } from "@nestjs/jwt";
-import { User } from "../../entities";
+import { Users } from "../../entities";
 import { ConfigService } from "@nestjs/config";
 import { TokenModel } from "./dto/token.model";
 
@@ -16,7 +16,7 @@ export class AuthService {
   }
 
 
-  async createToken(user: User): Promise<TokenModel> {
+  async createToken(user: Users): Promise<TokenModel> {
     return {
       expiresIn: this.configService.get("auth.expiresIn"),
       accessToken: this.jwtService.sign({ id: user.id }),
@@ -28,7 +28,7 @@ export class AuthService {
     };
   }
 
-  async validateUser(email: string, password: string): Promise<User> {
+  async validateUser(email: string, password: string): Promise<Users> {
     const user = await this.usersService.getByEmailAndPass(email, password);
     if (!user.isActive) {
       throw new UnauthorizedException("user are inactive!");

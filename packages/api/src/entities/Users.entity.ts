@@ -1,20 +1,16 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany } from "typeorm";
 
 import { Exclude } from "class-transformer";
 import { PasswordTransformer } from "../lib/password.transformer";
 import { Length } from "class-validator";
 import { TimestampEntities } from "../Generics/timestamp.entities";
-import Messages from "./Message.entity";
+import Messages from "./Messages.entity";
 
 @Entity({
   name: "users",
 })
 
-export default class User extends TimestampEntities {
-
-  @Column({ unique: true })
-  @PrimaryGeneratedColumn()
-  id: string;
+export default class Users extends TimestampEntities {
 
   @Column({ length: 255, name: "first_name" })
   firstName: string;
@@ -43,7 +39,19 @@ export default class User extends TimestampEntities {
   })
   isActive: boolean;
 
-  @OneToMany(() => Messages, messages => messages.user)
+  @OneToMany(() => Messages, messages => messages.user, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+    cascade: true,
+  })
+  @JoinColumn()
   messages: Messages[];
 
+  @OneToMany(() => Messages, messages => messages.receiverUser, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE",
+    cascade: true,
+  })
+  @JoinColumn()
+  receiverUser?: Messages[];
 }

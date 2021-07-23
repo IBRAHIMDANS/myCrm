@@ -9,6 +9,11 @@ import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-prop
 
 export class RegisterPayload {
 
+  @ApiModelProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  id?: string;
+
   @ApiModelProperty({ required: true })
   @IsEmail()
   email: string;

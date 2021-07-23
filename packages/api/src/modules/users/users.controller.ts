@@ -1,7 +1,7 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import UserDecorator from '../../decorators/user.decorator';
-import { User } from '../../entities';
+import UsersDecorator from '../../decorators/users.decorator';
+import { Users } from '../../entities';
 import { UsersService } from './users.service';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -10,7 +10,7 @@ import { AuthGuard } from '@nestjs/passport';
 @Controller('users')
 @ApiTags('users')
 export class UsersController {
-  constructor(private readonly userService: UsersService) {
+  constructor(private readonly usersService: UsersService) {
   }
 
   @Get('')
@@ -18,7 +18,7 @@ export class UsersController {
   @ApiResponse({ status: 201, description: 'Successful Registration' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async resetPassword(@UserDecorator() user: Partial<User>) {
-    return await this.userService.get(+user.id);
+  async getUser(@UsersDecorator() user: Partial<Users>) {
+    return await this.usersService.get(user.id);
   }
 }

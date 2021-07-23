@@ -3,14 +3,18 @@ import {
   BaseEntity,
   BeforeInsert,
   BeforeRemove,
-  BeforeUpdate,
+  BeforeUpdate, Column,
   CreateDateColumn,
-  DeleteDateColumn,
-  UpdateDateColumn
+  DeleteDateColumn, PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 
 
 export class TimestampEntities extends BaseEntity {
+
+  @Column({ unique: true })
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Exclude()
   @CreateDateColumn({ name: "created_at", type: "timestamp", update: false })
@@ -38,10 +42,4 @@ export class TimestampEntities extends BaseEntity {
     this.deletedAt = new Date();
   }
 
-  // @AfterLoad()
-  // updateCounters() {
-  //   console.log('loader loader');
-  // TODO create subscribers qui check if document is delete after 1 month and hard remove
-  //   console.log(body);
-  // }
 }

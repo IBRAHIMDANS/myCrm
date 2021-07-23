@@ -5,7 +5,7 @@ import {
 } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { User } from "../../entities";
+import { Messages, Users } from "../../entities";
 import { RegisterPayload } from "../auth/payloads";
 import crypto from "crypto";
 import { passwordGenerator } from "../../lib/passwordGen";
@@ -13,31 +13,33 @@ import { passwordGenerator } from "../../lib/passwordGen";
 @Injectable()
 export class UsersService {
 
-  constructor(@InjectRepository(User)
-    private readonly userRepository: Repository<User>) {
+  constructor(@InjectRepository(Users)
+  private readonly usersRepository: Repository<Users>) {
   }
 
-  async findOne(email: string): Promise<User | undefined> {
-    return await this.userRepository.findOneOrFail({ email: email });
+  async findOne(email: string): Promise<Users | undefined> {
+    return await this.usersRepository.findOneOrFail({ email: email });
   }
 
-  async get(id: number) {
-    return this.userRepository.findOne(id);
+  async get(id: string) {
+    return await this.usersRepository.findOne(id).then(result => {
+      return result;
+    });
   }
 
-  async getByEmail(email: string): Promise<User> {
-    return await this.userRepository.createQueryBuilder("users")
+  async getByEmail(email: string): Promise<Users> {
+    return await this.usersRepository.createQueryBuilder("users")
       .where("users.email = :email")
       .setParameter("email", email)
       .getOne();
   }
 
-  async create(userPayload: RegisterPayload): Promise<Partial<User>> {
+  async create(userPayload: RegisterPayload): Promise<Partial<Users>> {
     const existedUser = await this.getByEmail(userPayload.email);
     if (existedUser) {
       throw new NotAcceptableException("User with provided email already created.");
     }
-    const user = await this.userRepository.create(userPayload);
+    const user = await this.usersRepository.create(userPayload);
     const _password = userPayload.password || passwordGenerator();
     user.password = _password;
     try {
@@ -47,21 +49,21 @@ export class UsersService {
     }
   }
 
-  async save(user: User, password: string): Promise<Partial<User>> {
+  async save(user: Users, password: string): Promise<Partial<Users>> {
     try {
-      return await this.userRepository.save(user)
-        // .then(async () =>{
-        // // await this.emailService.sendMailRegister(user, password)
-        // })
-        // .catch(e => e.message);
+      return await this.usersRepository.save(user);
+      // .then(async () =>{
+      // // await this.emailService.sendMailRegister(user, password)
+      // })
+      // .catch(e => e.message);
     } catch (error) {
       throw new ConflictException(error);
     }
   }
 
-  async getByEmailAndPass(email: string, password: string): Promise<User> {
+  async getByEmailAndPass(email: string, password: string): Promise<Users> {
     const passHash = crypto.createHmac("sha256", password).digest("hex");
-    return await this.userRepository.createQueryBuilder("users")
+    return await this.usersRepository.createQueryBuilder("users")
       .where("users.email = :email and users.password = :password")
       .setParameter("email", email)
       .setParameter("password", passHash)

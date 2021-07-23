@@ -13,7 +13,7 @@ import { LocalAuthGuard } from "./guards/local-auth.guard";
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly userService: UsersService,
+    private readonly usersService: UsersService,
   ) {
   }
 
@@ -32,7 +32,7 @@ export class AuthController {
   @ApiResponse({ status: 400, description: "Bad Request" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   async register(@Body() payload: RegisterPayload) {
-    return await this.userService.create(payload);
+    return await this.usersService.create(payload);
   }
 
 
