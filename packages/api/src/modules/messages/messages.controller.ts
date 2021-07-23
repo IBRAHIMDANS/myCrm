@@ -9,14 +9,16 @@ import {
   Request,
   UseGuards,
 } from "@nestjs/common";
-import { ApiResponse } from "@nestjs/swagger";
+import { ApiResponse, ApiTags } from "@nestjs/swagger";
 import { MessagesService } from "./messages.service";
 import { MessagePayload } from "./payload/MessagePayload";
 import { JwtAuthGuard } from "../auth";
-import { Users } from "../../entities";
+import { Messages, Users } from "../../entities";
 import { UsersDecorator } from "../../decorators";
+import { DeepPartial, DeleteResult, UpdateResult } from "typeorm";
 
 @Controller("messages")
+@ApiTags('messages')
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {
   }
@@ -26,7 +28,7 @@ export class MessagesController {
   @ApiResponse({ status: 201, description: "Successful Login" })
   @ApiResponse({ status: 400, description: "Bad Request" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
-  async getReceiveMessage(@Request() req): Promise<any> {
+  async getReceiveMessage(@Request() req): Promise<Messages[]> {
     return await this.messagesService.getReceiveMessage(req.user);
   }
 
@@ -35,7 +37,7 @@ export class MessagesController {
   @ApiResponse({ status: 201, description: "Successful Login" })
   @ApiResponse({ status: 400, description: "Bad Request" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
-  async getUserMessages(@Request() req): Promise<any> {
+  async getUserMessages(@Request() req): Promise<Messages[]> {
     return await this.messagesService.getMessages(req.user);
   }
 
@@ -45,7 +47,7 @@ export class MessagesController {
   @ApiResponse({ status: 400, description: "Bad Request" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   async postMessage(@Request() req,
-    @Body() body: MessagePayload): Promise<any> {
+    @Body() body: MessagePayload): Promise<(DeepPartial<Messages> & Messages)[]> {
     return await this.messagesService.postMessage(req.user, body);
   }
 
@@ -54,7 +56,7 @@ export class MessagesController {
   @ApiResponse({ status: 201, description: "Successful Login" })
   @ApiResponse({ status: 400, description: "Bad Request" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
-  async getMessage(@Param("id") id: string): Promise<any> {
+  async getMessage(@Param("id") id: string): Promise<Messages> {
     return await this.messagesService.getMessage(id);
   }
 
@@ -63,7 +65,7 @@ export class MessagesController {
   @ApiResponse({ status: 201, description: "Successful Login" })
   @ApiResponse({ status: 400, description: "Bad Request" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
-  async updateMessage(@Param("id") id: string,@UsersDecorator() user: Partial<Users>): Promise<any> {
+  async updateMessage(@Param("id") id: string,@UsersDecorator() user: Partial<Users>): Promise<UpdateResult> {
     return await this.messagesService.updateMessage(id, user);
   }
 
@@ -72,7 +74,7 @@ export class MessagesController {
   @ApiResponse({ status: 201, description: "Successful Login" })
   @ApiResponse({ status: 400, description: "Bad Request" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
-  async deleteMessage(@Param("id") id: string,@UsersDecorator() user: Partial<Users>): Promise<any> {
+  async deleteMessage(@Param("id") id: string,@UsersDecorator() user: Partial<Users>): Promise<DeleteResult> {
     return await this.messagesService.deleteMessage(id, user);
   }
 }
