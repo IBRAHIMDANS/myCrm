@@ -19,12 +19,16 @@ export class MessagesService {
   ) {
   }
 
-  async getMessage(id: string, user: Users): Promise<Messages> {
-    return await this.messagesRepository.findOne(id, { where: { user: user } });
+  async getMessages(user: Users): Promise<Messages[]> {
+    return await this.messagesRepository.find({ user: user });
   }
 
-  async getUserMessages(user: Users): Promise<Messages[]> {
-    return await this.messagesRepository.find({ user: user });
+  async getReceiveMessage(user: Users): Promise<Messages[]> {
+    return await this.messagesRepository.find({ where: { receiverUser: user } });
+  }
+
+  async getMessage(id: string): Promise<Messages> {
+    return await this.messagesRepository.findOne(id);
   }
 
   async postMessage(user: Users, body: MessagePayload): Promise<Messages> {
@@ -44,7 +48,7 @@ export class MessagesService {
       return await this.messagesRepository
         .createQueryBuilder()
         .update(body)
-        .where("id = :id", { id }  )
+        .where("id = :id", { id })
         .returning("*")
         .execute();
     } catch (error) {
@@ -52,12 +56,12 @@ export class MessagesService {
     }
   }
 
-  async deleteMessage(id: string, user: Users): Promise<DeleteResult> {
+  async deleteMessage(id: string, user: Partial<Users>): Promise<DeleteResult> {
     try {
       return await this.messagesRepository
         .createQueryBuilder()
         .delete()
-        .where("id= :id AND userId= :userId" , {id: id, userId: user.id})
+        .where("id= :id AND userId= :userId", { id: id, userId: user.id })
         .returning("*")
         .execute();
     } catch (error) {

@@ -1,1 +1,1 @@
-export { default as Users } from './users.decorator';
+export { default as UsersDecorator } from './users.decorator';
