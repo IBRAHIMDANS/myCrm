@@ -1,19 +1,13 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-import { Exclude } from 'class-transformer';
-import { PasswordTransformer } from '../lib/password.transformer';
-import { Length } from 'class-validator';
-import { TimestampEntities } from '../Generics/timestamp.entities';
-import { UserRoleEnum } from '../enum/UserRoleEnum';
+import { Exclude } from "class-transformer";
+import { PasswordTransformer } from "../lib/password.transformer";
+import { Length } from "class-validator";
+import { TimestampEntities } from "../Generics/timestamp.entities";
+import Messages from "./Message.entity";
 
 @Entity({
-  name: 'users',
+  name: "users",
 })
 
 export default class User extends TimestampEntities {
@@ -22,36 +16,34 @@ export default class User extends TimestampEntities {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @Column({ length: 255, name: 'first_name' })
+  @Column({ length: 255, name: "first_name" })
   firstName: string;
 
-  @Column({ length: 255, name: 'last_name' })
+  @Column({ length: 255, name: "last_name" })
   lastName: string;
 
   @Column({ length: 255 })
   email: string;
 
+  @Column({ length: 255, nullable: true })
+  phoneNumber?: string;
 
   @Exclude()
   @Length(4)
   @Column({
-    name: 'password',
+    name: "password",
     length: 255,
     transformer: new PasswordTransformer(),
   })
   password?: string;
 
   @Column({
-    type: 'enum',
-    enum: UserRoleEnum,
-    default: UserRoleEnum.USER,
-  })
-  role: string;
-
-  @Column({
-    type: 'boolean',
-    default: false,
+    type: "boolean",
+    default: true,
   })
   isActive: boolean;
+
+  @OneToMany(() => Messages, messages => messages.user)
+  messages: Messages[];
 
 }

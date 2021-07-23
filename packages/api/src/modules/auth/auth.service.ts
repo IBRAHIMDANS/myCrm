@@ -1,8 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
-import { JwtService } from '@nestjs/jwt';
-import { User } from '../../entities';
-import { ConfigService } from '@nestjs/config';
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { UsersService } from "../users/users.service";
+import { JwtService } from "@nestjs/jwt";
+import { User } from "../../entities";
+import { ConfigService } from "@nestjs/config";
+import { TokenModel } from "./dto/token.model";
 
 @Injectable()
 export class AuthService {
@@ -15,30 +16,27 @@ export class AuthService {
   }
 
 
-  async createToken(user: User): Promise<{
-    expiresIn: string; firstName: string; lastName: string; id: string; accessToken: string; email: string;
-    // player: Players
-  }> {
+  async createToken(user: User): Promise<TokenModel> {
     return {
-      expiresIn: this.configService.get('auth.expiresIn'),
+      expiresIn: this.configService.get("auth.expiresIn"),
       accessToken: this.jwtService.sign({ id: user.id }),
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      phoneNumber: user.phoneNumber,
       id: user.id,
     };
   }
 
-  async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.usersService.getByEmailAndPass(email, pass);
-    // console.log(user);
-    // if(user.isActive === false) {
-    //   throw new UnauthorizedException('user is inactive!');
-    // }
-    if(!user) {
-      throw new UnauthorizedException('Wrong login combination! user are is not active or exist');
+  async validateUser(email: string, password: string): Promise<User> {
+    const user = await this.usersService.getByEmailAndPass(email, password);
+    if (!user.isActive) {
+      throw new UnauthorizedException("user are inactive!");
+    }
+    if (!user) {
+      throw new UnauthorizedException("Wrong login combination! user are is not active or exist");
     }
     return user;
-
   }
+
 }

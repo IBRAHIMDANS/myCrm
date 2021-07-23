@@ -1342,6 +1342,13 @@
     "@types/helmet" "0.0.37"
     helmet "^3.9.0"
 
+"@nestjs/axios@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/axios/-/axios-0.0.1.tgz#c32a1c11e25765a69f3f9012ea5b8f49915db7cb"
+  integrity sha512-6H06VmDp5mmjjjLgglEdtzwtmli5pz5UdcY7E9v5SPoz5KeM4uLQvOF5ZJ1S/R4wub0WAqXUQL8mwuXxdjKIQQ==
+  dependencies:
+    axios "0.21.1"
+
 "@nestjs/cli@^8.0.0":
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/@nestjs/cli/-/cli-8.0.2.tgz#04872a17dbbc966a1545302a61bb5e96ea4d89f6"

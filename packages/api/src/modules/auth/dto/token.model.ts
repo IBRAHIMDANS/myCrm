@@ -1,8 +1,9 @@
 export class TokenModel {
-  expiresIn: string;
-  accessToken: string;
   id: string;
   firstName: string;
   lastName: string;
   email: string;
+  accessToken: string;
+  phoneNumber?:string
+  expiresIn: string;
 }

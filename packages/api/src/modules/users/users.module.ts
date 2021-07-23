@@ -8,8 +8,8 @@ import { PassportModule } from "@nestjs/passport";
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
     ConfigModule,
+    TypeOrmModule.forFeature([User]),
     PassportModule.register({ defaultStrategy: "jwt" }),
   ],
   providers: [UsersService],

@@ -21,19 +21,16 @@ export class RegisterPayload {
   @IsNotEmpty()
   lastName: string;
 
-  // @ApiModelProperty()
-  // @IsString()
-  // slug: string;
+  @ApiModelProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  @MinLength(10)
+  phoneNumber: string;
 
   @ApiModelProperty({ required: false })
   @IsString()
   @IsOptional()
   @MinLength(5)
   password?: string;
-
-  @ApiModelProperty({ required: false })
-  @IsString()
-  @IsOptional()
-  role?: string;
 
 }

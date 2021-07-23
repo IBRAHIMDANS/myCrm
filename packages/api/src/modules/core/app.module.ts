@@ -7,6 +7,8 @@ import { auth, database, mail } from "../../config";
 import { JwtModule } from "@nestjs/jwt";
 import { AuthModule } from "../auth";
 import { HealthModule } from "../health/health.module";
+import { UsersModule } from "../users/users.module";
+import { MessagesModule } from "../messages/messages.module";
 
 @Module({
   imports: [
@@ -40,9 +42,10 @@ import { HealthModule } from "../health/health.module";
         inject: [ConfigService]
       }), global: true
     },
-    // AuthModule,
-    // UsersModule,
+    AuthModule,
+    UsersModule,
     HealthModule,
+    MessagesModule
   ],
   controllers: [AppController],
   providers: [AppService],
