@@ -21,7 +21,7 @@
     "lint": "lerna run lint",
     "lintfix": "lerna run lintfix",
     "dev-api": "lerna run start:dev --scope crm-api --stream",
-    "dev-app": "lerna run start --scope app --stream --npm-client=yarn",
+    "dev-app": "lerna run dev --scope ap --stream --npm-client=yarn",
     "bootstrap": "npx lerna bootstrap",
     "build": "lerna run build"
   },
