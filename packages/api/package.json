@@ -9,6 +9,7 @@
     "name": "Ibrahima DANSOKO"
   },
   "scripts": {
+    "init": "shx cp .env.sample .env",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -63,6 +64,7 @@
     "typeorm": "^0.2.34"
   },
   "devDependencies": {
+    "shx": "^0.3.3",
     "@compodoc/compodoc": "^1.1.14",
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
