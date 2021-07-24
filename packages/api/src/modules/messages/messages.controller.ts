@@ -47,7 +47,7 @@ export class MessagesController {
   @ApiResponse({ status: 400, description: "Bad Request" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
   async postMessage(@Request() req,
-    @Body() body: MessagePayload): Promise<(DeepPartial<Messages> & Messages)[]> {
+    @Body() body: MessagePayload): Promise<unknown> {
     return await this.messagesService.postMessage(req.user, body);
   }
 

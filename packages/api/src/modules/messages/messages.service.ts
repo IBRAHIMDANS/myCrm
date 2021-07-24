@@ -31,7 +31,7 @@ export class MessagesService {
     return await this.messagesRepository.findOne(id);
   }
 
-  async postMessage(user: Users, body: MessagePayload): Promise<(DeepPartial<Messages> & Messages)[]> {
+  async postMessage(user: Users, body: MessagePayload): Promise<unknown> {
     const receiverUser = await this.usersRepository.findOne(body.receiverId);
     if (!receiverUser) throw new ForbiddenException("user not exist!");
     const message = await this.messagesRepository.create({
