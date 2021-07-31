@@ -30,9 +30,7 @@ export class AuthService {
 
   async validateUser(email: string, password: string): Promise<Users> {
     const user = await this.usersService.getByEmailAndPass(email, password);
-    if (!user.isActive) {
-      throw new UnauthorizedException("user are inactive!");
-    }
+
     if (!user) {
       throw new UnauthorizedException("Wrong login combination! user are is not active or exist");
     }

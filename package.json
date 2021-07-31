@@ -21,7 +21,7 @@
     "lint": "lerna run lint",
     "lintfix": "lerna run lintfix",
     "dev-api": "lerna run start:dev --scope crm-api --stream",
-    "dev-app": "lerna run dev --scope ap --stream --npm-client=yarn",
+    "dev-app": "lerna run dev --scope app --stream --npm-client=yarn",
     "bootstrap": "npx lerna bootstrap",
     "build": "lerna run build"
   },
@@ -30,7 +30,7 @@
     "pm2": "^5.1.0"
   },
   "engines": {
-    "node": "14.16.1",
+    "node": "14.x.x",
     "yarn": "1.22.10"
   }
 }

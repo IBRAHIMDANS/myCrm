@@ -13,6 +13,15 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {
   }
 
+  @Get('/all')
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Successful Registration' })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async getAll(@UsersDecorator() user: Partial<Users>) {
+    return await this.usersService.getAll();
+  }
+
   @Get('')
   @ApiBearerAuth('')
   @ApiResponse({ status: 201, description: 'Successful Registration' })

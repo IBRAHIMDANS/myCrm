@@ -5,7 +5,7 @@ import {
 } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Messages, Users } from "../../entities";
+import { Users } from "../../entities";
 import { RegisterPayload } from "../auth/payloads";
 import crypto from "crypto";
 import { passwordGenerator } from "../../lib/passwordGen";
@@ -15,6 +15,10 @@ export class UsersService {
 
   constructor(@InjectRepository(Users)
   private readonly usersRepository: Repository<Users>) {
+  }
+
+  async getAll(): Promise<Users[]> {
+    return await this.usersRepository.find({ isActive: true });
   }
 
   async findOne(email: string): Promise<Users | undefined> {

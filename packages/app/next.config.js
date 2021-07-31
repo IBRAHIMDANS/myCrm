@@ -7,4 +7,13 @@ module.exports = {
   env: {
     PORT: 3001,
   },
+  async rewrites() {
+    return [
+      //{
+      //  source: '/login',
+      //  sensitive: false,
+      //  destination: '/login',
+      //},
+    ]
+  },
 }
