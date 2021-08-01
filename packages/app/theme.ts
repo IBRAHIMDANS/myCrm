@@ -6,7 +6,6 @@ import {
   purple,
   red,
 } from "@material-ui/core/colors";
-import { white } from "colorette";
 
 const palettes = {
   primary: purple,
@@ -21,13 +20,13 @@ const palettes = {
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#000',
+      main: "#000",
       ...palettes.primary,
     },
     secondary: {
       main: "#fff",
       // secondary:"#fff",
-      // ...palettes.secondary,
+      ...palettes.secondary,
     },
 
     error: {
@@ -39,6 +38,24 @@ const theme = createTheme({
       ...palettes.background,
     },
   },
+  overrides: {
+    MuiList: {
+      root : {
+        padding: 0
+      }
+    },
+    MuiMenuItem: {
+      root: {
+        // color: "white",
+        backgroundColor: "#000",
+        "&$selected": { // <--// mixing the two classes
+          color: "#000",
+          backgroundColor: "#21b3d3",
+        },
+      },
+    },
+  },
+
 });
 
 export default theme;

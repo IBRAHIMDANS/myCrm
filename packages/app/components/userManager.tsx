@@ -7,8 +7,9 @@ import { usersActions } from "../actions";
 import { Users } from "../dto";
 
 const Root = styled(Grid)`
-  .MuiListItem-button {
-    background-color: red;
+
+  ul.MuiList-root.MuiMenu-list.MuiList-padding {
+    padding: 0 !important;
   }
 
 `;
@@ -31,11 +32,14 @@ const StyledSelect = styled(Select)`
     border-bottom: none;
   }
 
+
   .MuiSelect-icon {
     color: white;
   }
 
 `;
+
+
 const UserManager = (props: any) => {
   const uDispatch = useDispatch();
   useEffect(() => {
@@ -61,7 +65,6 @@ const UserManager = (props: any) => {
 
   const { items: users } = useSelector((state: any) => state.users);
 
-
   return (
     <Root item>
       <StyledSelect
@@ -73,9 +76,6 @@ const UserManager = (props: any) => {
         value={user}
         onChange={handleChange}
       >
-        <MenuItem value="">
-          <StyledText color={"secondary"}>None</StyledText>
-        </MenuItem>
         {users && users.map((user: Users) => <MenuItem
             key={user?.id}
             value={user?.id}
@@ -87,7 +87,6 @@ const UserManager = (props: any) => {
             </Grid>
           </MenuItem>,
         )}
-
       </StyledSelect>
     </Root>
   );
