@@ -8,11 +8,14 @@ import { Users } from "./index";
 
 export default class Messages extends TimestampEntities {
 
-  @Column({ length: 255, name: "text" })
-  text: string;
+  @Column({ length: 255, name: "content" })
+  content: string;
 
   @Column({ type: "boolean", default: false })
   isRead: boolean;
+
+  @Column({ type: "boolean", default: true })
+  isMessage: boolean;
 
   @ManyToOne(() => Users, user => user.messages, {
     eager: true,

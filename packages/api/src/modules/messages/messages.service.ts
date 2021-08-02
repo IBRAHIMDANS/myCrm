@@ -19,11 +19,11 @@ export class MessagesService {
   ) {
   }
 
-  async getMessages(user: Users): Promise<Messages[]> {
+  async getMessages(user: Partial<Users>): Promise<Messages[]> {
     return await this.messagesRepository.find({ user: user });
   }
 
-  async getReceiveMessage(user: Users): Promise<Messages[]> {
+  async getReceiveMessage(user: Partial<Users>): Promise<Messages[]> {
     return await this.messagesRepository.find({ where: { receiverUser: user } });
   }
 
@@ -31,11 +31,11 @@ export class MessagesService {
     return await this.messagesRepository.findOne(id);
   }
 
-  async postMessage(user: Users, body: MessagePayload): Promise<unknown> {
+  async postMessage(user: Users, body: MessagePayload):Promise<Messages> {
     const receiverUser = await this.usersRepository.findOne(body.receiverId);
     if (!receiverUser) throw new ForbiddenException("user not exist!");
     const message = await this.messagesRepository.create({
-      text: body.text,
+      ...body,
       user,
       receiverUser,
     });
@@ -45,9 +45,11 @@ export class MessagesService {
   async updateMessage(id: string,
     body: Partial<MessagePayload>): Promise<UpdateResult> {
     try {
+      // console.log(body, 'body')
+    // const message: Messages =   await this.messagesRepository.findOneOrFail(id)
       return await this.messagesRepository
         .createQueryBuilder()
-        .update(body)
+        .update({ ...body })
         .where("id = :id", { id })
         .returning("*")
         .execute();

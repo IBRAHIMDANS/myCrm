@@ -9,7 +9,7 @@ export class MessagePayload {
 
   @ApiModelProperty({ required: true })
   @IsNotEmpty()
-  text: string;
+  content: string;
 
   @ApiModelProperty({ required: true })
   @IsString()
@@ -25,4 +25,9 @@ export class MessagePayload {
   @IsBoolean()
   @IsOptional()
   isRead: boolean;
+
+  @ApiModelProperty({ required: true })
+  @IsBoolean()
+  @IsOptional()
+  isMessage: boolean;
 }
