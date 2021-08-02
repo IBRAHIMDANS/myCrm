@@ -1,11 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { Divider, Grid, ListItem, Typography } from "@material-ui/core";
-import EmailIcon from "@material-ui/icons/Email";
-import PhoneIcon from "@material-ui/icons/Phone";
-import DraftsIcon from "@material-ui/icons/Drafts";
 import { format } from "date-fns";
 import { MessageIcon } from "./MessageIcon";
+import { Messages } from "../dto";
 
 const Root = styled(Grid)`
   margin: 1em;
@@ -31,16 +29,15 @@ const ContentTypography = styled(Typography)`
 `;
 
 
-
 const MessageItem = (props: any) => {
   const {
     isMessage = true,
-    firstName = "Mike",
-    lastName = "Hatfield",
+    receiverUser = { firstName: "ibrahima", lastName: "Dansoko" },
     content = "J'aimerais connaitre le suivi de ma commande 124324 , pouvez vous m'en dire plus ?J'aimerais connaitre le suivi de ma commande 124324 , pouvez vous m'en dire plus ?J'aimerais connaitre le suivi de ma commande 124324 , pouvez vous m'en dire plus ?",
-    createdAt = "12/04/2022 11:15",
+    createdAt= new Date(),
     isRead = false,
-  } = props;
+  }: Messages = props.message;
+  const { firstName, lastName } = receiverUser;
   return (
     <ListItem {...props} divider>
       <Root container direction={"row"}>
@@ -53,7 +50,7 @@ const MessageItem = (props: any) => {
           {content && <ContentTypography>{content}</ContentTypography>}
         </Grid>
         <Grid item>
-          <Typography>{format(new Date(), "HH : mm")}</Typography>
+          <Typography>{format(new Date(createdAt), "HH : mm")}</Typography>
         </Grid>
         <Divider/>
       </Root>

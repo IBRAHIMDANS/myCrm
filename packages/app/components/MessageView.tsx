@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Grid, ListItem, Paper, Typography } from "@material-ui/core";
 import { NameTypography } from "./MessageItem";
@@ -6,7 +6,7 @@ import { MessageIcon } from "./MessageIcon";
 import { format } from "date-fns";
 import FrenchLocale from "date-fns/locale/fr";
 import Markdown from "react-markdown";
-// import rehypeHighlight from "rehype-highlight";
+import { useRouter } from "next/router";
 
 const Root = styled(Grid)`
   padding: 0 0 1em 1em;
@@ -39,6 +39,11 @@ const Root = styled(Grid)`
   }
 `;
 const MessageView = () => {
+  const router = useRouter();
+  const { id, comment } = router.query;
+  useEffect(() => {
+    console.log(router.query, "query");
+  }, [router]);
   return (
     <Root container direction={"column"}>
       <Paper className={"userInfo"}>
@@ -68,7 +73,7 @@ const MessageView = () => {
           <Typography className={"app-hour margin"}>{format(new Date(), "EEEE dd LLLL HH:mm", { locale: FrenchLocale })
             .toUpperCase()}</Typography>
         </Grid>
-        <Markdown  className={"app-content"}>
+        <Markdown className={"app-content"}>
           Lorem ipsum dolor sit amet,
           consectetur adipisicing elit. Animi commodi consequuntur delectus
           deserunt dolorum eveniet, fugit iste magni maiores maxime minima

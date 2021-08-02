@@ -64,7 +64,6 @@ const UserManager = (props:any) => {
   };
 
   const { items: users } = useSelector((state: any) => state.users);
-  console.log(user, "user selected");
   return (
     <Root item>
       <StyledSelect
