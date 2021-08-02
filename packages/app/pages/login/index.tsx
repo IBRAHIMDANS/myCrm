@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { alertActions, usersActions } from "../../actions";
-import { LoginPayload } from "../../dto/LoginPayload";
+import { LoginPayload } from "../../dto/Login";
 import styled from "styled-components";
 import PersonIcon from "@material-ui/icons/Person";
 import Link from "next/link";

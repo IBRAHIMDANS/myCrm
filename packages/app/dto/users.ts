@@ -4,7 +4,7 @@ type Users = {
   firstName?: string,
   lastName?: string,
   password?: string
-  isActive: boolean,
+  isActive?: boolean,
   confirmPassword?: string
   phoneNumber?: string
 }

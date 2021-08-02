@@ -40,7 +40,7 @@ const StyledSelect = styled(Select)`
 `;
 
 
-const UserManager = (props: any) => {
+const UserManager = (props:any) => {
   const uDispatch = useDispatch();
   useEffect(() => {
     uDispatch(usersActions.getAll());
@@ -64,7 +64,7 @@ const UserManager = (props: any) => {
   };
 
   const { items: users } = useSelector((state: any) => state.users);
-
+  console.log(user, "user selected");
   return (
     <Root item>
       <StyledSelect
@@ -75,11 +75,12 @@ const UserManager = (props: any) => {
         onOpen={handleOpen}
         value={user}
         onChange={handleChange}
+        {...props}
       >
         {users && users.map((user: Users) => <MenuItem
             key={user?.id}
             value={user?.id}
-            disabled={userConnectedID !== user?.id}
+            // disabled={userConnectedID !== user?.id}
           >
             <Grid container alignItems={"center"}>
               <Avatar><PersonIcon/></Avatar>

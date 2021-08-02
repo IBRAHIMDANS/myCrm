@@ -13,7 +13,8 @@ const Home = () => {
   });
   return (
     <div className={styles.container}>
-      <SendMessageBtn/>
+      <SendMessageBtn />
+
       {isDesktop() ?
         <DesktopView/>
         :

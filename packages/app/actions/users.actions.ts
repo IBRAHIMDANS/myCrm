@@ -1,6 +1,6 @@
 import { usersConstants } from "../constants";
 import { usersService } from "../services";
-import { LoginPayload } from "../dto/LoginPayload";
+import { LoginPayload } from "../dto/Login";
 import { history } from "../utils/history";
 import { Users } from "../dto";
 import { alertActions } from "./alert.actions";

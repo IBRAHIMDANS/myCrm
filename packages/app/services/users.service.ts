@@ -1,7 +1,6 @@
 import { toLower } from "lodash";
 import handleResponseAPi from "../utils/handleResponseApi";
-import { Users } from "../dto";
-import { LoginPayload } from "../dto/LoginPayload";
+import { Login, Users } from "../dto";
 import { history } from "../utils/history";
 import { authHeader } from "../utils/auth-header";
 
@@ -14,7 +13,7 @@ export const usersService = {
   getAll,
 };
 
-function login({ email, password }: LoginPayload) {
+function login({ email, password }: Login) {
   const requestOptions = {
     method: "POST",
     headers: {
@@ -28,7 +27,7 @@ function login({ email, password }: LoginPayload) {
   return fetch(`${NEXT_PUBLIC_CRM_API}/auth/login`, requestOptions)
     .then(handleResponseAPi)
     .then(users => {
-      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem("users", JSON.stringify(users));
       return users;
     });
 }
@@ -71,7 +70,7 @@ async function update(
     lastName,
     email,
   }: Users) {
-  const requestOptions :any = {
+  const requestOptions: any = {
     method: "PATCH",
     headers: authHeader(),
     body: JSON.stringify({

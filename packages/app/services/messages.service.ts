@@ -1,13 +1,11 @@
-import { toLower } from "lodash";
 import handleResponseAPi from "../utils/handleResponseApi";
-import { Users } from "../dto";
-import { LoginPayload } from "../dto/LoginPayload";
-import { history } from "../utils/history";
 import { authHeader } from "../utils/auth-header";
+import { Messages } from "../dto";
 
 const { NEXT_PUBLIC_CRM_API } = process.env;
 export const messagesService = {
   getAll,
+  post,
 };
 
 function getAll() {
@@ -17,6 +15,20 @@ function getAll() {
   };
 
   return fetch(`${NEXT_PUBLIC_CRM_API}/users/all`, requestOptions)
+    .then(handleResponseAPi)
+    .then(users => {
+      return users;
+    });
+}
+
+function post(messages:Messages) {
+  const requestOptions: any = {
+    method: "POST",
+    headers: authHeader(),
+    body:JSON.stringify(messages)
+  };
+
+  return fetch(`${NEXT_PUBLIC_CRM_API}/messages`, requestOptions)
     .then(handleResponseAPi)
     .then(users => {
       return users;

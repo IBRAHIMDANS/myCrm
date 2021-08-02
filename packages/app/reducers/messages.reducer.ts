@@ -27,6 +27,18 @@ export function messages(state = {},
       return {
         error: action.error,
       };
+    case messagesConstants.POST_REQUEST:
+      return {
+        loading: true,
+      };
+    case messagesConstants.POST_SUCCESS:
+      return {
+        messages: action.messages,
+      };
+    case messagesConstants.POST_FAILURE:
+      return {
+        error: action.error,
+      };
     default:
       return state;
   }

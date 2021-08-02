@@ -1,5 +1,6 @@
 import { createTheme } from "@material-ui/core/styles";
 import {
+  blue,
   grey,
   lightGreen,
   orange,
@@ -8,7 +9,7 @@ import {
 } from "@material-ui/core/colors";
 
 const palettes = {
-  primary: purple,
+  primary: blue,
   secondary: lightGreen,
   error: red,
   background: grey,

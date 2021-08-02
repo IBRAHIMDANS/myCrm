@@ -4,6 +4,7 @@ import UsersDecorator from '../../decorators/users.decorator';
 import { Users } from '../../entities';
 import { UsersService } from './users.service';
 import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from "../auth";
 
 
 @UseGuards(AuthGuard('jwt'))
@@ -15,6 +16,7 @@ export class UsersController {
 
   @Get('/all')
   @ApiBearerAuth()
+  // @UseGuards(JwtAuthGuard)
   @ApiResponse({ status: 201, description: 'Successful Registration' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
@@ -23,7 +25,8 @@ export class UsersController {
   }
 
   @Get('')
-  @ApiBearerAuth('')
+  @ApiBearerAuth()
+  // @UseGuards(JwtAuthGuard)
   @ApiResponse({ status: 201, description: 'Successful Registration' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })

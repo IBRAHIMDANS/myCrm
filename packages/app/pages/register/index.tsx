@@ -17,25 +17,24 @@ import Link from "next/link";
 import { Users } from "../../dto";
 import { phoneRegExp } from "../../utils/utils";
 
-const Root = styled(Grid)`
+const Root = styled(Grid)``;
 
-  //padding: 1em;
-
-`;
 const PaperStyled = styled(Paper)`
   min-width: 500px;
   padding: 1em;
   margin: 1em;
-
 `;
+
 const ButtonStyled = styled(Button)`
   margin: 1em;
 `;
+
 const BlueLink = styled.a`
   font-weight: bold;
   color: blue;
   cursor: pointer;
 `;
+
 const Register: any = () => {
   const UsersForm: Users = {
     firstName: "",
