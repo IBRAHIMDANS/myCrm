@@ -24,7 +24,7 @@ const MessageList = () => {
           key={message.id}
           message={message}
           button
-          onClick={() => history.push("", { query: { messageId: message.id } }, { shallow: true })}
+          onClick={() => history.push(`?messageId=${message.id}`, undefined, { shallow: true })}
         />,
       )}
     </List>
