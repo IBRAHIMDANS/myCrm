@@ -3,7 +3,7 @@ import { Column, Entity, JoinColumn, OneToMany } from "typeorm";
 import { Exclude } from "class-transformer";
 import { PasswordTransformer } from "../lib/password.transformer";
 import { Length } from "class-validator";
-import { TimestampEntities } from "../Generics/timestamp.entities";
+import { TimestampEntities } from "./Generics/timestamp.entities";
 import Messages from "./Messages.entity";
 
 @Entity({

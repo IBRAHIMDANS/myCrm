@@ -16,11 +16,11 @@ export class TimestampEntities extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Exclude()
+  // @Exclude()
   @CreateDateColumn({ name: "created_at", type: "timestamp", update: false })
   createdAt?: Date;
 
-  @Exclude()
+  // @Exclude()
   @UpdateDateColumn({ name: "updated_at", type: "timestamp" })
   updatedAt?: Date;
 

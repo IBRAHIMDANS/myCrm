@@ -14,10 +14,10 @@ function getAll() {
     headers: authHeader(),
   };
 
-  return fetch(`${NEXT_PUBLIC_CRM_API}/users/all`, requestOptions)
+  return fetch(`${NEXT_PUBLIC_CRM_API}/messages`, requestOptions)
     .then(handleResponseAPi)
-    .then(users => {
-      return users;
+    .then(messages => {
+      return messages;
     });
 }
 

@@ -1,5 +1,5 @@
 import { Column, Entity, JoinTable, ManyToOne } from "typeorm";
-import { TimestampEntities } from "../Generics/timestamp.entities";
+import { TimestampEntities } from "./Generics/timestamp.entities";
 import { Users } from "./index";
 
 @Entity({

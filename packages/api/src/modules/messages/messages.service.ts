@@ -6,7 +6,7 @@ import {
 import { MessagePayload } from "./payload/MessagePayload";
 import { Users } from "../../entities";
 import { InjectRepository } from "@nestjs/typeorm";
-import { DeepPartial, DeleteResult, Repository, UpdateResult } from "typeorm";
+import { DeleteResult, Repository, UpdateResult } from "typeorm";
 import Messages from "../../entities/Messages.entity";
 
 @Injectable()
@@ -28,10 +28,10 @@ export class MessagesService {
   }
 
   async getMessage(id: string): Promise<Messages> {
-    return await this.messagesRepository.findOne(id);
+    return await this.messagesRepository.findOne(id)
   }
 
-  async postMessage(user: Users, body: MessagePayload):Promise<Messages> {
+  async postMessage(user: Users, body: MessagePayload): Promise<Messages> {
     const receiverUser = await this.usersRepository.findOne(body.receiverId);
     if (!receiverUser) throw new ForbiddenException("user not exist!");
     const message = await this.messagesRepository.create({
@@ -45,8 +45,6 @@ export class MessagesService {
   async updateMessage(id: string,
     body: Partial<MessagePayload>): Promise<UpdateResult> {
     try {
-      // console.log(body, 'body')
-    // const message: Messages =   await this.messagesRepository.findOneOrFail(id)
       return await this.messagesRepository
         .createQueryBuilder()
         .update({ ...body })

@@ -1,8 +1,7 @@
 import { usersConstants } from "../constants";
 import { usersService } from "../services";
-import { LoginPayload } from "../dto/Login";
+import { Login, Users } from "../dto";
 import { history } from "../utils/history";
-import { Users } from "../dto";
 import { alertActions } from "./alert.actions";
 
 export const usersActions = {
@@ -15,7 +14,7 @@ export const usersActions = {
   // delete: _delete,
 };
 
-function login({ email, password }: LoginPayload) {
+function login({ email, password }: Login) {
   return (dispatch: any) => {
     dispatch(request({ email }));
 

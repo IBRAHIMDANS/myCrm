@@ -1,11 +1,12 @@
 import { messagesConstants } from "../constants";
 import { messagesService } from "../services";
 import { Messages } from "../dto";
+import { alertActions } from "./alert.actions";
 
 export const messagesActions = {
   getAll,
   // getById,
-  post
+  post,
 };
 
 function getAll() {
@@ -14,8 +15,11 @@ function getAll() {
 
     messagesService.getAll()
       .then(
-        (users: any) => dispatch(success(users)),
-        (error: any) => dispatch(failure(error.toString())),
+        (messages: any) => dispatch(success(messages)),
+        (error: any) => {
+          dispatch(failure(error.toString()));
+          dispatch(alertActions.error(error.toString()));
+        },
       );
   };
 
@@ -31,6 +35,7 @@ function getAll() {
     return { type: messagesConstants.GET_ALL_FAILURE, error };
   }
 }
+
 function post(messages: Messages) {
   return (dispatch: any) => {
     dispatch(request());

@@ -6,6 +6,7 @@ type Users = {
   password?: string
   isActive?: boolean,
   confirmPassword?: string
+  deletedAt?: unknown
   phoneNumber?: string
 }
 export default Users;

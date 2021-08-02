@@ -7,10 +7,6 @@ import React from "react";
 import SendMessageBtn from "../components/SendMessage";
 
 const Home = () => {
-
-  useSelector((state) => {
-    console.log(state, "state");
-  });
   return (
     <div className={styles.container}>
       <SendMessageBtn />

@@ -1,3 +1,5 @@
+import { history } from "./history";
+
 export default function handleResponseAPi(response: {
   text: () => Promise<any>;
   ok: any;
@@ -10,7 +12,8 @@ export default function handleResponseAPi(response: {
       if (response.status === 401) {
         if (typeof window !== "undefined") {
           localStorage.removeItem("users");
-          window.location.reload();
+          history.push("/login");
+          // window.location.reload();
         }
       }
       const error = (data && data.message) || response.statusText;
