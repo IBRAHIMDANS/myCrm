@@ -1,54 +1,30 @@
 import React from "react";
 import {
   Button,
-  CircularProgress,
-  createStyles,
   Grid,
-  makeStyles,
   Popover,
   TextField,
-  Theme,
+  Typography,
 } from "@material-ui/core";
 import styled from "styled-components";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { Messages, Users } from "../dto";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import { messagesActions } from "../actions";
-import { useDispatch } from "react-redux";
-import { Messages } from "../dto";
-import UserManager from "./userManager";
 
 const Root = styled(Grid)`
   margin: 1em;
 `;
+const FormGrid = styled(Grid)`
+  padding: 1em;
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
+  .submitBtn {
+    margin-top: 1em;
+  }
+`;
 
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    paper: {
-      position: "absolute",
-      width: 400,
-      backgroundColor: "white",
-      border: "2px solid #000",
-      borderRadius: "1em",
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-    },
-  }),
-);
 
 const SendMessageBtn = (props: any) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
@@ -60,11 +36,15 @@ const SendMessageBtn = (props: any) => {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  const MessageForm: Messages = {
+
+  const MessageForm: Partial<Messages> = {
     content: "",
     receiverId: "",
   };
-  const dispatch = useDispatch();
+  const uDispatch = useDispatch();
+  const { items: users } = useSelector((state: any) => state.users);
+  const userConnectedID = useSelector((state: any) => state?.authentication?.user?.id);
+
   return (
     <Root container justifyContent={"flex-end"}>
       <Button
@@ -79,16 +59,16 @@ const SendMessageBtn = (props: any) => {
 
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "center",
+          horizontal: "left",
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "center",
+          horizontal: "left",
         }}
         transitionDuration={1000}
       >
-        <div>
-          <h2 id="simple-modal-title">Envoyer un message</h2>
+        <div className={"app-form"}>
+          <Typography variant={"h6"}>Envoyer un message</Typography>
           <Formik
             initialValues={MessageForm}
             validationSchema={Yup.object().shape({
@@ -96,9 +76,10 @@ const SendMessageBtn = (props: any) => {
               receiverId: Yup.string().required(),
             })}
             onSubmit={(values, actions) => {
-              dispatch(messagesActions.post(values));
+              uDispatch(messagesActions.post(values));
               actions.setSubmitting(false);
-              // actions.resetForm();
+              handleClose();
+              window.location.reload();
             }}
           >
             {({
@@ -109,41 +90,56 @@ const SendMessageBtn = (props: any) => {
               errors,
               isValid,
               touched,
+              setFieldValue
             }) => (
-              <Grid container justifyContent={"center"} direction={"column"}>
-                <UserManager/>
+              <FormGrid
+                container
+                justifyContent={"center"}
+                direction={"column"}
+              >
+                <Autocomplete
+                  id="receiverId"
+                  options={ users.filter((user: Users) => userConnectedID !== user?.id) }
+                  getOptionLabel={ (option: Users) => `${option.firstName} ${option.lastName} ` }
+                  onChange={(e, value) => setFieldValue("receiverId", value?.id )}
+                  onBlur={handleBlur("receiverId")}
+                  onOpen={handleBlur}
+                  includeInputInList
+                  style={{ width: 300 }}
+                  renderInput={params => (
+                    <TextField
+                      { ...params }
+                      error={Boolean(touched.receiverId && errors.receiverId)}
+                      helperText={touched.receiverId && errors.receiverId}
+                      onBlur={handleBlur("receiverId")}
+                      margin="normal"
+                      label="Utilisateur"
+                      fullWidth
+                    />
+                  )}
+                />
                 <TextField
-                  label="Prénom"
+                  label="Content"
                   value={values.content}
                   onBlur={handleBlur("content")}
                   onChange={handleChange("content")}
+                  multiline
                 />
+
                 {errors.content && touched.content && (
-                  <p
-                    style={{ fontSize: 10, color: "red" }}
-                  >
+                  <p style={{ fontSize: 10, color: "red" }}>
                     {errors.content}
                   </p>
                 )}
-
-                {true ?
-                  <Button
-                    disabled={!isValid}
-                    variant={"outlined"}
-                    onClick={() => handleSubmit()}
-                  >
-                    Register
-                  </Button>
-                  :
-                  <Grid
-                    container
-                    justifyContent={"center"}
-                    style={{ padding: "1em" }}
-                  >
-                    <CircularProgress/>
-                  </Grid>
-                }
-              </Grid>
+                <Button
+                  className={"submitBtn"}
+                  disabled={!isValid}
+                  variant={"outlined"}
+                  onClick={() => handleSubmit()}
+                >
+                  Envoyer
+                </Button>
+              </FormGrid>
             )}
           </Formik>
         </div>

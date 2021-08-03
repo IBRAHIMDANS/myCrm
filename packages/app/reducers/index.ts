@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
 import { users } from "./users.reducer";
 import { authentication } from "./authentication.reducer";
-import { messages } from "./messages.reducer";
+import { messagesReceive } from "./messages_receive.reducer";
+import { messagesSender } from "./messages_sender.reducer";
+import { message } from "./message.reducer";
 import { alert } from "./alert.reducer";
 
 type rootReducer = {
@@ -14,6 +16,8 @@ const rootReducer: any = combineReducers({
   users,
   authentication,
   alert,
-  messages
+  messagesReceive,
+  messagesSender,
+  message
 });
 export default rootReducer;

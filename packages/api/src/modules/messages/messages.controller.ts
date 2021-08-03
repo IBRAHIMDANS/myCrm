@@ -32,6 +32,14 @@ export class MessagesController {
   async getReceiveMessage(@UsersDecorator() user: Partial<Users>): Promise<Messages[]> {
     return await this.messagesService.getReceiveMessage(user);
   }
+  @Get("send")
+  @UseGuards(JwtAuthGuard)
+  @ApiResponse({ status: 201, description: "Successful Login" })
+  @ApiResponse({ status: 400, description: "Bad Request" })
+  @ApiResponse({ status: 401, description: "Unauthorized" })
+  async getSendMessage(@UsersDecorator() user: Partial<Users>): Promise<Messages[]> {
+    return await this.messagesService.getMessages(user);
+  }
 
   @Get()
   @UseGuards(JwtAuthGuard)
@@ -61,13 +69,15 @@ export class MessagesController {
     return await this.messagesService.getMessage(id);
   }
 
-  @Patch("/:id")
+  @Patch(":id")
   @UseGuards(JwtAuthGuard)
   @ApiResponse({ status: 201, description: "Successful Login" })
   @ApiResponse({ status: 400, description: "Bad Request" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
-  async updateMessage(@Param("id", new ParseUUIDPipe()) id: string,
-    @Body() body: Partial<MessagePayload>): Promise<UpdateResult> {
+  async updateMessage(
+    @Param("id", new ParseUUIDPipe()) id: string,
+    @Body() body: Partial<MessagePayload>,
+  ): Promise<any> {
     return await this.messagesService.updateMessage(id, body);
   }
 

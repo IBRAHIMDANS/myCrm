@@ -43,14 +43,18 @@ export class MessagesService {
   }
 
   async updateMessage(id: string,
-    body: Partial<MessagePayload>): Promise<UpdateResult> {
+    body: Partial<MessagePayload>): Promise<string> {
     try {
+      delete body.id
       return await this.messagesRepository
         .createQueryBuilder()
         .update({ ...body })
         .where("id = :id", { id })
         .returning("*")
-        .execute();
+        .execute()
+        .then((response) => {
+          return response.raw[0];
+        });
     } catch (error) {
       throw new ConflictException(error);
     }

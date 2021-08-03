@@ -1,7 +1,7 @@
 import React from "react";
-import MessageList from "./MessageList";
+import MessageListWrapper from "./MessageListWrapper";
 import styled from "styled-components";
-import { Button, Grid, Paper } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import MessageView from "./MessageView";
 
 const Root = styled(Grid)`
@@ -15,9 +15,9 @@ const PaperStyled = styled(Paper)`
 const DesktopView = () => {
   return (
     <Root container>
-      <Grid item xs={3}>
+      <Grid item>
         <PaperStyled>
-          <MessageList/>
+          <MessageListWrapper/>
         </PaperStyled>
       </Grid>
       <Grid item xs>

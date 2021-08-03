@@ -4,11 +4,13 @@ import { Messages } from "../dto";
 
 const { NEXT_PUBLIC_CRM_API } = process.env;
 export const messagesService = {
-  getAll,
+  getAllSender,
+  getAllReceive,
   post,
+  update,
 };
 
-function getAll() {
+function getAllSender() {
   const requestOptions: any = {
     method: "GET",
     headers: authHeader(),
@@ -20,17 +22,39 @@ function getAll() {
       return messages;
     });
 }
+function getAllReceive() {
+  const requestOptions: any = {
+    method: "GET",
+    headers: authHeader(),
+  };
 
-function post(messages:Messages) {
+  return fetch(`${NEXT_PUBLIC_CRM_API}/messages/receive`, requestOptions)
+    .then(handleResponseAPi)
+    .then(messages => {
+      return messages;
+    });
+}
+
+function post(message: Partial<Messages| any>) {
   const requestOptions: any = {
     method: "POST",
     headers: authHeader(),
-    body:JSON.stringify(messages)
+    body: new URLSearchParams(message),
   };
 
   return fetch(`${NEXT_PUBLIC_CRM_API}/messages`, requestOptions)
     .then(handleResponseAPi)
-    .then(users => {
-      return users;
-    });
+    .then(message => message);
+}
+
+function update(message: Partial<Messages> | any) {
+  const requestOptions: any = {
+    method: "PATCH",
+    headers: authHeader(),
+    body: new URLSearchParams(message),
+  };
+
+  return fetch(`${NEXT_PUBLIC_CRM_API}/messages/${message.id}`, requestOptions)
+    .then(handleResponseAPi)
+    .then(message => message);
 }

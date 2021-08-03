@@ -8,10 +8,10 @@ import {
   useScrollTrigger,
 } from "@material-ui/core";
 import styled from "styled-components";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import { useState } from "react";
 import UserManager from "./userManager";
 import Logout from "./Logout";
+import MessagesCounter from "./MessageCounter";
 
 const Root = styled.div`
 `;
@@ -23,16 +23,7 @@ const LinkCustom = styled(Link)`
     cursor: pointer;
   }
 `;
-const NotificationText = styled(Typography)`
-  margin: 0 0 0 1em;
-  color: white;
-  font-weight: bold;
-`;
-const CounterGrid = styled(Grid)`
-  background-color: #21b3d3;
-  padding: 3px 8px;
 
-`;
 
 function HideOnScroll(props: any) {
   const { children, window } = props;
@@ -62,12 +53,7 @@ const Header = (props: unknown) => {
                   <Typography variant="h6" color={"inherit"}>CRM
                     APP </Typography>
                 </LinkCustom>
-                <CounterGrid item>
-                  <Grid container alignItems={"center"}>
-                    <MailOutlineIcon htmlColor={"#fff"}/>
-                    <NotificationText> {counter} </NotificationText>
-                  </Grid>
-                </CounterGrid>
+                <MessagesCounter/>
               </Grid>
             </Grid>
             <Grid item>

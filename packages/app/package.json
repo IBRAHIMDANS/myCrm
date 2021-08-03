@@ -33,6 +33,7 @@
   "dependencies": {
     "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
     "@types/lodash": "^4.14.171",
     "@types/styled-components": "^5.1.11",
     "babel-plugin-inline-react-svg": "^2.0.1",

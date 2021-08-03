@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { alertActions, usersActions } from "../../actions";
-import { LoginPayload } from "../../dto/Login";
+import { Login as LoginPayload } from "../../dto";
 import styled from "styled-components";
 import PersonIcon from "@material-ui/icons/Person";
 import Link from "next/link";
@@ -33,6 +33,7 @@ const BlueLink = styled.a`
   cursor: pointer;
 `;
 const Login: any = () => {
+
   const LoginForm: LoginPayload = {
     email: "",
     password: "",
@@ -41,7 +42,7 @@ const Login: any = () => {
   const { loggingIn = false } = useSelector((state: any) => state.authentication);
   let { message } = useSelector(({ alert }: any) => alert);
   message && setTimeout(() => {
-     dispatch(alertActions.clear());
+    dispatch(alertActions.clear());
   }, 1000);
 
   return (
@@ -97,6 +98,8 @@ const Login: any = () => {
                 <TextField
                   label="Password"
                   value={values.password}
+                  type="password"
+                  autoComplete="current-password"
                   onBlur={handleBlur("password")}
                   onChange={handleChange("password")}
                 />

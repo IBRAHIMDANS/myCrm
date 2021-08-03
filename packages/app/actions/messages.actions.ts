@@ -4,16 +4,18 @@ import { Messages } from "../dto";
 import { alertActions } from "./alert.actions";
 
 export const messagesActions = {
-  getAll,
+  getAllSender,
+  getAllReceive,
   // getById,
   post,
+  update
 };
 
-function getAll() {
+function getAllSender() {
   return (dispatch: any) => {
     dispatch(request());
 
-    messagesService.getAll()
+    messagesService.getAllSender()
       .then(
         (messages: any) => dispatch(success(messages)),
         (error: any) => {
@@ -24,39 +26,89 @@ function getAll() {
   };
 
   function request() {
-    return { type: messagesConstants.GET_ALL_REQUEST };
+    return { type: messagesConstants.GET_ALL_SENDER_REQUEST };
   }
 
   function success(messages: any) {
-    return { type: messagesConstants.GET_ALL_SUCCESS, messages };
+    return { type: messagesConstants.GET_ALL_SENDER_SUCCESS, messages };
   }
 
   function failure(error: any) {
-    return { type: messagesConstants.GET_ALL_FAILURE, error };
+    return { type: messagesConstants.GET_ALL_SENDER_FAILURE, error };
   }
 }
-
-function post(messages: Messages) {
+function getAllReceive() {
   return (dispatch: any) => {
     dispatch(request());
 
-    messagesService.post(messages)
+    messagesService.getAllReceive()
       .then(
-        (users: any) => dispatch(success(users)),
+        (messages: any) => dispatch(success(messages)),
+        (error: any) => {
+          dispatch(failure(error.toString()));
+          dispatch(alertActions.error(error.toString()));
+        },
+      );
+  };
+
+  function request() {
+    return { type: messagesConstants.GET_ALL_RECEIVE_REQUEST };
+  }
+
+  function success(messages: any) {
+    return { type: messagesConstants.GET_ALL_RECEIVE_SUCCESS, messages };
+  }
+
+  function failure(error: any) {
+    return { type: messagesConstants.GET_ALL_RECEIVE_FAILURE, error };
+  }
+}
+
+function post(message: Partial<Messages>) {
+  return (dispatch: any) => {
+    dispatch(request());
+
+    messagesService.post(message)
+      .then(
+        (message: any) => dispatch(success(message)),
         (error: any) => dispatch(failure(error.toString())),
       );
   };
 
   function request() {
-    return { type: messagesConstants.GET_ALL_REQUEST };
+    return { type: messagesConstants.POST_REQUEST };
   }
 
-  function success(messages: any) {
-    return { type: messagesConstants.GET_ALL_SUCCESS, messages };
+  function success(message: Messages) {
+    return { type: messagesConstants.POST_SUCCESS, message };
   }
 
   function failure(error: any) {
-    return { type: messagesConstants.GET_ALL_FAILURE, error };
+    return { type: messagesConstants.POST_FAILURE, error };
+  }
+}
+
+function update(message: Partial<Messages>) {
+  return (dispatch: any) => {
+    dispatch(request());
+
+    messagesService.update(message)
+      .then(
+        (message: any) => dispatch(success(message)),
+        (error: any) => dispatch(failure(error.toString())),
+      );
+  };
+
+  function request() {
+    return { type: messagesConstants.UPDATE_REQUEST };
+  }
+
+  function success(message: Messages) {
+    return { type: messagesConstants.UPDATE_SUCCESS, message };
+  }
+
+  function failure(error: any) {
+    return { type: messagesConstants.UPDATE_FAILURE, error };
   }
 }
 

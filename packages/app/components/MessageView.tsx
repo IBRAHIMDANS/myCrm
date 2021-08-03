@@ -47,7 +47,6 @@ const MessageView = () => {
   if (!getMessage(messages)) return (<Grid> <Typography> Veuillez selectionner un message </Typography></Grid>);
   const {
     receiverUser,
-    user,
     isRead,
     content,
     createdAt,

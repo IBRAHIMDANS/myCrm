@@ -1,17 +1,17 @@
 import { messagesConstants } from "../constants";
 
-export function messages(state = {},
+export function messagesReceive(state = {},
   action: { type: any; messages: any; error: any; }) {
   switch (action.type) {
-    case messagesConstants.GET_ALL_REQUEST:
+    case messagesConstants.GET_ALL_RECEIVE_REQUEST:
       return {
         loading: true,
       };
-    case messagesConstants.GET_ALL_SUCCESS:
+    case messagesConstants.GET_ALL_RECEIVE_SUCCESS:
       return {
         messages: action.messages,
       };
-    case messagesConstants.GET_ALL_FAILURE:
+    case messagesConstants.GET_ALL_RECEIVE_FAILURE:
       return {
         error: action.error,
       };
@@ -24,18 +24,6 @@ export function messages(state = {},
         messages: action.messages,
       };
     case messagesConstants.GET_BY_ID_FAILURE:
-      return {
-        error: action.error,
-      };
-    case messagesConstants.POST_REQUEST:
-      return {
-        loading: true,
-      };
-    case messagesConstants.POST_SUCCESS:
-      return {
-        messages: action.messages,
-      };
-    case messagesConstants.POST_FAILURE:
       return {
         error: action.error,
       };
