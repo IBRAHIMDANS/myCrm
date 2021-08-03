@@ -60,12 +60,12 @@ export class MessagesService {
     }
   }
 
-  async deleteMessage(id: string, user: Partial<Users>): Promise<DeleteResult> {
+  async deleteMessage(id: string): Promise<DeleteResult> {
     try {
       return await this.messagesRepository
         .createQueryBuilder()
         .delete()
-        .where("id= :id AND userId= :userId", { id: id, userId: user.id })
+        .where("id= :id ", { id: id })
         .returning("*")
         .execute();
     } catch (error) {

@@ -9,7 +9,7 @@ const MessageList = ({ messages, uDispatch, isMobile }: any) => {
 
   return (<List>
     {messages?.length === 0 &&
-    <Grid container justify={"center"}>
+    <Grid container justifyContent={"center"}>
       <Typography> Pas de Message pour l'instant 🥲 </Typography>
     </Grid>
     }
@@ -19,13 +19,12 @@ const MessageList = ({ messages, uDispatch, isMobile }: any) => {
         message={message}
         button
         onClick={() => {
-
           !message.isRead &&
           uDispatch(messagesActions.update({
             id: message.id,
             isRead: true,
           }));
-          !message.isRead && window.location.reload();
+          !message.isRead && uDispatch(messagesActions.getAllReceive()) && uDispatch(messagesActions.getAllSender())
           if (isMobile) {
             history.push(`message?messageId=${message.id}`, undefined, { shallow: true });
           } else {

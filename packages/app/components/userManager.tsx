@@ -63,7 +63,7 @@ const UserManager = (props: any) => {
   }, []);
   const userConnectedID = useSelector((state: any) => state?.authentication?.user?.id);
 
-  const [user, setUser] = React.useState(userConnectedID || "");
+  const [user, setUser] = React.useState(userConnectedID );
   const [open, setOpen] = React.useState(false);
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {

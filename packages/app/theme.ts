@@ -10,7 +10,7 @@ import {
 
 const palettes = {
   primary: blue,
-  secondary: lightGreen,
+  secondary: red,
   error: red,
   background: grey,
   warning: orange,

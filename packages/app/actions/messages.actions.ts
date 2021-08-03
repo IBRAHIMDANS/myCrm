@@ -9,6 +9,7 @@ export const messagesActions = {
   getById,
   post,
   update,
+  deleteMessage
 };
 
 function getAllSender() {
@@ -35,6 +36,33 @@ function getAllSender() {
 
   function failure(error: any) {
     return { type: messagesConstants.GET_ALL_SENDER_FAILURE, error };
+  }
+}
+
+function deleteMessage(id:string) {
+  return (dispatch: any) => {
+    dispatch(request());
+
+    messagesService.deleteMessage(id)
+      .then(
+        (messages: any) => dispatch(success(messages)),
+        (error: any) => {
+          dispatch(failure(error.toString()));
+          dispatch(alertActions.error(error.toString()));
+        },
+      );
+  };
+
+  function request() {
+    return { type: messagesConstants.DELETE_REQUEST };
+  }
+
+  function success(messages: any) {
+    return { type: messagesConstants.DELETE_SUCCESS, messages };
+  }
+
+  function failure(error: any) {
+    return { type: messagesConstants.DELETE_FAILURE, error };
   }
 }
 
@@ -113,7 +141,6 @@ function update(message: Partial<Messages>) {
   }
 }
 
-
 function getById(id: any) {
   return ((dispatch: any) => {
     dispatch(request(id));
@@ -136,3 +163,4 @@ function getById(id: any) {
     return { type: messagesConstants.GET_BY_ID_FAILURE, id, error };
   }
 }
+

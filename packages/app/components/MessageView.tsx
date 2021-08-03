@@ -17,6 +17,8 @@ import { history } from "../utils/history";
 import { useDispatch, useSelector } from "react-redux";
 import { messagesActions } from "../actions";
 import { GlassMorphismPaper } from "../styles/GlassMorphism";
+import ConfirmPopoverButton from "./ConfirmPopoverButton";
+import { PopoverButton } from "./index";
 
 const Root = styled(Grid)`
   padding: 0 0 1em 1em;
@@ -68,7 +70,7 @@ const MessageView = () => {
 
   useEffect(() => {
     if (history.query.messageId) uDispatch(messagesActions.getById(history?.query?.messageId));
-  }, [typeof window !== 'undefined' && history.query?.messageId]);
+  }, [typeof window !== "undefined" && history.query?.messageId]);
 
   const { message } = useSelector(({ message }: any) => message);
   if (!message) return (
@@ -82,6 +84,17 @@ const MessageView = () => {
   return (
     <Root container direction={"column"}>
       <StyledPaper className={"userInfo"}>
+        <Grid container justifyContent={"flex-end"} direction={"row"}>
+          <Grid item>
+            <ConfirmPopoverButton
+              title={"Supprimer"}
+              handleClick={() => uDispatch(messagesActions.deleteMessage(history?.query?.messageId as string))}
+            />
+          </Grid>
+          <Grid item>
+            <PopoverButton message={message} title={"Modifier"}/>
+          </Grid>
+        </Grid>
         <NameTypography isread={message?.isRead}> {message?.receiverUser?.firstName} {message?.receiverUser?.lastName} </NameTypography>
         <ListItem
           button

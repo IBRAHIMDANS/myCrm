@@ -9,6 +9,7 @@ export const messagesService = {
   getById,
   post,
   update,
+  deleteMessage
 };
 
 function getAllSender() {
@@ -48,6 +49,18 @@ function getById(id:string) {
       return message;
     });
 }
+function deleteMessage(id:string) {
+  const requestOptions: any = {
+    method: "DELETE",
+    headers: authHeader(),
+  };
+
+  return fetch(`${NEXT_PUBLIC_CRM_API}/messages/${id}`, requestOptions)
+    .then(handleResponseAPi)
+    .then(message => {
+      return message;
+    });
+}
 
 function post(message: Partial<Messages| any>) {
   const requestOptions: any = {
@@ -62,6 +75,7 @@ function post(message: Partial<Messages| any>) {
 }
 
 function update(message: Partial<Messages> | any) {
+  console.log(message)
   const requestOptions: any = {
     method: "PATCH",
     headers: authHeader(),

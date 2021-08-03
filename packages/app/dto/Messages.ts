@@ -5,7 +5,7 @@ type Messages = {
   content: string
   isRead: boolean
   isMessage: boolean
-  receiverId: string
+  receiverId?: string
   receiverUser?: Users
   createdAt?: Date
   UpdatedAt?: Date

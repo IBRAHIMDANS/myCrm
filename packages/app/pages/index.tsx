@@ -1,14 +1,14 @@
 import styles from "../styles/Home.module.css";
 import withAuth from "../hooks/withAuth";
-import { DesktopView, MobileView } from "../components";
+import { DesktopView, MobileView, PopoverButton } from "../components";
 import isDesktop from "../hooks/isDesktop";
 import React from "react";
-import SendMessageBtn from "../components/SendMessage";
+import MessageForm from "../components/MessageForm";
 
 const Home = () => {
   return (
     <div className={styles.container}>
-      <SendMessageBtn/>
+      <PopoverButton />
       {isDesktop() ?
         <DesktopView/>
         :

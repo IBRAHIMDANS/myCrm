@@ -39,6 +39,18 @@ export function message(state = {},
       return {
         error: action.error,
       };
+    case messagesConstants.DELETE_REQUEST:
+      return {
+        loading: true,
+      };
+    case messagesConstants.DELETE_SUCCESS:
+      return {
+        message: action.message,
+      };
+    case messagesConstants.DELETE_FAILURE:
+      return {
+        error: action.error,
+      };
     default:
       return state;
   }

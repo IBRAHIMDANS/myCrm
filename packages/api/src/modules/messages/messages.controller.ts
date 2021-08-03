@@ -86,8 +86,7 @@ export class MessagesController {
   @ApiResponse({ status: 201, description: "Successful Login" })
   @ApiResponse({ status: 400, description: "Bad Request" })
   @ApiResponse({ status: 401, description: "Unauthorized" })
-  async deleteMessage(@Param("id", new ParseUUIDPipe()) id: string,
-    @UsersDecorator() user: Partial<Users>): Promise<DeleteResult> {
-    return await this.messagesService.deleteMessage(id, user);
+  async deleteMessage(@Param("id", new ParseUUIDPipe()) id: string): Promise<DeleteResult> {
+    return await this.messagesService.deleteMessage(id);
   }
 }
