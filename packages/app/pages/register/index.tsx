@@ -154,6 +154,8 @@ const Register: any = () => {
                 <TextField
                   label="Password"
                   value={values.password}
+                  type="password"
+                  autoComplete="current-password"
                   onBlur={handleBlur("password")}
                   onChange={handleChange("password")}
                 />
@@ -166,6 +168,8 @@ const Register: any = () => {
                 )}
                 <TextField
                   label="Password Confirmation"
+                  type="password"
+                  autoComplete="current-password"
                   value={values.confirmPassword}
                   onBlur={handleBlur("confirmPassword")}
                   onChange={handleChange("confirmPassword")}
