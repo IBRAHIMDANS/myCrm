@@ -6,9 +6,9 @@ import { alertActions } from "./alert.actions";
 export const messagesActions = {
   getAllSender,
   getAllReceive,
-  // getById,
+  getById,
   post,
-  update
+  update,
 };
 
 function getAllSender() {
@@ -37,6 +37,7 @@ function getAllSender() {
     return { type: messagesConstants.GET_ALL_SENDER_FAILURE, error };
   }
 }
+
 function getAllReceive() {
   return (dispatch: any) => {
     dispatch(request());
@@ -113,25 +114,25 @@ function update(message: Partial<Messages>) {
 }
 
 
-// function getById(id: any) {
-//   return ((dispatch: any) => {
-//     dispatch(request(id));
-//     usersService.getById(id)
-//       .then(
-//         (user: any) => dispatch(success(user)),
-//         (error: { toString: () => any; }) => dispatch(failure(id, error.toString())),
-//       );
-//   };
-//
-//   function request(id: any) {
-//     return { type: messagesConstants.GET_BY_ID_REQUEST, id };
-//   }
-//
-//   function success(user: any) {
-//     return { type: messagesConstants.GET_BY_ID_SUCCESS, user };
-//   }
-//
-//   function failure(id: any, error: any) {
-//     return { type: messagesConstants.GET_BY_ID_FAILURE, id, error };
-//   }
-// }
+function getById(id: any) {
+  return ((dispatch: any) => {
+    dispatch(request(id));
+    messagesService.getById(id)
+      .then(
+        (user: any) => dispatch(success(user)),
+        (error: { toString: () => any; }) => dispatch(failure(id, error.toString())),
+      );
+  });
+
+  function request(id: any) {
+    return { type: messagesConstants.GET_BY_ID_REQUEST, id };
+  }
+
+  function success(message: any) {
+    return { type: messagesConstants.GET_BY_ID_SUCCESS, message };
+  }
+
+  function failure(id: any, error: any) {
+    return { type: messagesConstants.GET_BY_ID_FAILURE, id, error };
+  }
+}

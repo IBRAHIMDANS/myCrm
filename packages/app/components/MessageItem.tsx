@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { Divider, Grid, ListItem, Typography } from "@material-ui/core";
-import { format } from "date-fns";
+import { formatDistance, formatDistanceStrict } from "date-fns";
 import { MessageIcon } from "./MessageIcon";
 import { Messages } from "../dto";
+import { fr } from "date-fns/locale";
 
 const Root = styled(Grid)`
   margin: 1em;
@@ -34,7 +35,7 @@ const MessageItem = (props: any) => {
     isMessage = true,
     receiverUser = { firstName: "ibrahima", lastName: "Dansoko" },
     content = "J'aimerais connaitre le suivi de ma commande 124324 , pouvez vous m'en dire plus ?J'aimerais connaitre le suivi de ma commande 124324 , pouvez vous m'en dire plus ?J'aimerais connaitre le suivi de ma commande 124324 , pouvez vous m'en dire plus ?",
-    createdAt= new Date(),
+    createdAt = new Date(),
     isRead = false,
   }: Messages = props.message;
   const { firstName, lastName } = receiverUser;
@@ -50,7 +51,7 @@ const MessageItem = (props: any) => {
           {content && <ContentTypography>{content}</ContentTypography>}
         </Grid>
         <Grid item>
-          <Typography>{format(new Date(createdAt), "HH : mm")}</Typography>
+          <Typography>{formatDistanceStrict(new Date(), new Date(createdAt), { locale: fr })}</Typography>
         </Grid>
         <Divider/>
       </Root>

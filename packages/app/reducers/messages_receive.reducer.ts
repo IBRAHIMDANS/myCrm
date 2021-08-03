@@ -15,18 +15,6 @@ export function messagesReceive(state = {},
       return {
         error: action.error,
       };
-    case messagesConstants.GET_BY_ID_REQUEST:
-      return {
-        loading: true,
-      };
-    case messagesConstants.GET_BY_ID_SUCCESS:
-      return {
-        messages: action.messages,
-      };
-    case messagesConstants.GET_BY_ID_FAILURE:
-      return {
-        error: action.error,
-      };
     default:
       return state;
   }

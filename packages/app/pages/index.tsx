@@ -1,5 +1,4 @@
 import styles from "../styles/Home.module.css";
-import { useSelector } from "react-redux";
 import withAuth from "../hooks/withAuth";
 import { DesktopView, MobileView } from "../components";
 import isDesktop from "../hooks/isDesktop";
@@ -9,7 +8,7 @@ import SendMessageBtn from "../components/SendMessage";
 const Home = () => {
   return (
     <div className={styles.container}>
-      <SendMessageBtn />
+      <SendMessageBtn/>
 
       {isDesktop() ?
         <DesktopView/>

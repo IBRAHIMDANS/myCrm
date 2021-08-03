@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Grid, ListItem, Paper, Typography } from "@material-ui/core";
 import { NameTypography } from "./MessageItem";
@@ -7,8 +7,8 @@ import { format } from "date-fns";
 import FrenchLocale from "date-fns/locale/fr";
 import Markdown from "react-markdown";
 import { history } from "../utils/history";
-import { useSelector } from "react-redux";
-import { Messages } from "../dto";
+import { useDispatch, useSelector } from "react-redux";
+import { messagesActions } from "../actions";
 
 const Root = styled(Grid)`
   padding: 0 0 1em 1em;
@@ -40,49 +40,53 @@ const Root = styled(Grid)`
     color: #777;
   }
 `;
-const getMessage = (messages: (Messages[] | undefined)): any => messages?.find(item => item?.id === history?.query?.messageId);
+// const getMessage = (messages: (Messages[] | undefined)): any => messages?.find(item => item?.id === history?.query?.messageId);
 const MessageView = () => {
-  const messages: Messages[] = useSelector(({ messages }: any) => messages?.messages);
+  const uDispatch = useDispatch();
+  useEffect(() => {
+    uDispatch(messagesActions.getById(history?.query?.messageId));
+  }, [history?.query?.messageId]);
 
-  if (!getMessage(messages)) return (<Grid> <Typography> Veuillez selectionner un message </Typography></Grid>);
-  const {
-    receiverUser,
-    isRead,
-    content,
-    createdAt,
-    isMessage,
-  } = getMessage(messages);
+  const { message } = useSelector(({ message }: any) => message);
+  if (!message) return (
+    <Grid
+      container
+      justifyContent={"center"}
+      alignItems={"center"}
+      alignContent={"center"}
+    > <Typography variant={"h5"}> Veuillez selectionner un message
+      ✉️ </Typography></Grid>);
   return (
     <Root container direction={"column"}>
-        <Paper className={"userInfo"}>
-          <NameTypography isread={isRead}> {receiverUser?.firstName} {receiverUser?.lastName} </NameTypography>
-          <ListItem
-            button
-            key="Email"
-            component="a"
-            href={`mailto:${receiverUser?.email}`}
-          >{receiverUser?.email} </ListItem>
-          <Typography color={"textPrimary"}> </Typography>
-          <ListItem
-            className={"app-phoneNumber"}
-            button
-            key="NumberPhone"
-            component="a"
-            href={`tel:${receiverUser?.phoneNumber}`}
-          >{receiverUser?.phoneNumber} </ListItem>
-        </Paper>
-        <Paper className={"userInfo"}>
-          <Grid container spacing={2}>
-            <MessageIcon isMessage={isMessage} isRead={isRead}/>
-            <NameTypography isread={isRead}> {receiverUser?.firstName} {receiverUser?.lastName} </NameTypography>
-          </Grid>
-          <Grid>
-            <Typography className={"app-email margin"}> {receiverUser?.email}</Typography>
-            <Typography className={"app-hour margin"}>{format(new Date(createdAt), "EEEE dd LLLL HH:mm", { locale: FrenchLocale })
-              .toUpperCase()}</Typography>
-          </Grid>
-          <Markdown className={"app-content"}>{content && content}</Markdown>
-        </Paper>
+      <Paper className={"userInfo"}>
+        <NameTypography isread={message?.isRead}> {message?.receiverUser?.firstName} {message?.receiverUser?.lastName} </NameTypography>
+        <ListItem
+          button
+          key="Email"
+          component="a"
+          href={`mailto:${message?.receiverUser?.email}`}
+        >{message?.receiverUser?.email} </ListItem>
+        <Typography color={"textPrimary"}> </Typography>
+        <ListItem
+          className={"app-phoneNumber"}
+          button
+          key="NumberPhone"
+          component="a"
+          href={`tel:${message?.receiverUser?.phoneNumber}`}
+        >{message?.receiverUser?.phoneNumber} </ListItem>
+      </Paper>
+      <Paper className={"userInfo"}>
+        <Grid container spacing={2}>
+          <MessageIcon isMessage={message?.isMessage} isRead={message?.isRead}/>
+          <NameTypography isread={message?.isRead}> {message?.receiverUser?.firstName} {message?.receiverUser?.lastName} </NameTypography>
+        </Grid>
+        <Grid>
+          <Typography className={"app-email margin"}> {message?.receiverUser?.email}</Typography>
+          <Typography className={"app-hour margin"}>{format(new Date(), "EEEE dd LLLL HH:mm", { locale: FrenchLocale })
+            .toUpperCase()}</Typography>
+        </Grid>
+        <Markdown className={"app-content"}>{message?.content}</Markdown>
+      </Paper>
     </Root>
   );
 };

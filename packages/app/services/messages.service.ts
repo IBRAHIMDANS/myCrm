@@ -6,6 +6,7 @@ const { NEXT_PUBLIC_CRM_API } = process.env;
 export const messagesService = {
   getAllSender,
   getAllReceive,
+  getById,
   post,
   update,
 };
@@ -32,6 +33,19 @@ function getAllReceive() {
     .then(handleResponseAPi)
     .then(messages => {
       return messages;
+    });
+}
+
+function getById(id:string) {
+  const requestOptions: any = {
+    method: "GET",
+    headers: authHeader(),
+  };
+
+  return fetch(`${NEXT_PUBLIC_CRM_API}/messages/${id}`, requestOptions)
+    .then(handleResponseAPi)
+    .then(message => {
+      return message;
     });
 }
 

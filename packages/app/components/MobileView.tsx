@@ -1,10 +1,9 @@
 import React from "react";
+import MessageListWrapper from "./MessageListWrapper";
 
 const DesktopView = () => {
   return (
-    <div>
-      Mobile
-    </div>
+    <MessageListWrapper/>
   );
 };
 
