@@ -7,6 +7,7 @@ import { authHeader } from "../utils/auth-header";
 const { NEXT_PUBLIC_CRM_API } = process.env;
 export const usersService = {
   login,
+  switchUser,
   logout,
   register,
   update,
@@ -25,6 +26,19 @@ function login({ email, password }: Login) {
   };
 
   return fetch(`${NEXT_PUBLIC_CRM_API}/auth/login`, requestOptions)
+    .then(handleResponseAPi)
+    .then(users => {
+      localStorage.setItem("users", JSON.stringify(users));
+      return users;
+    });
+}
+function switchUser(id:string) {
+  const requestOptions: any = {
+    method: "GET",
+    headers: authHeader(),
+  };
+
+  return fetch(`${NEXT_PUBLIC_CRM_API}/auth/switchUser/${id}`, requestOptions)
     .then(handleResponseAPi)
     .then(users => {
       localStorage.setItem("users", JSON.stringify(users));

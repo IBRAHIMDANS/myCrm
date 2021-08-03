@@ -39,6 +39,12 @@ export default class Users extends TimestampEntities {
   })
   isActive: boolean;
 
+  @Column({
+    type: "boolean",
+    default: true,
+  })
+  isAdmin: boolean;
+
   @OneToMany(() => Messages, messages => messages.user, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE",

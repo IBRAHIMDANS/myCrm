@@ -6,18 +6,12 @@ import { messagesSender } from "./messages_sender.reducer";
 import { message } from "./message.reducer";
 import { alert } from "./alert.reducer";
 
-type rootReducer = {
-  user: any
-  authentication: any
-  alert: any
-  messages:any
-}
-const rootReducer: any = combineReducers({
+const rootReducer = combineReducers({
   users,
   authentication,
   alert,
   messagesReceive,
   messagesSender,
-  message
+  message,
 });
 export default rootReducer;

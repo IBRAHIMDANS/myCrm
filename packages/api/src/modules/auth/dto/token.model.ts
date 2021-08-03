@@ -6,4 +6,5 @@ export class TokenModel {
   accessToken: string;
   phoneNumber?:string
   expiresIn: string;
+  isAdmin?:boolean;
 }

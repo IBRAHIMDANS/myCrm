@@ -1,6 +1,6 @@
 import { usersConstants } from "../constants";
 
-let user =  typeof window !== "undefined" && JSON.parse(<string>localStorage.getItem("users"));
+let user = typeof window !== "undefined" && JSON.parse(<string>localStorage.getItem("users"));
 const initialState = user ? { loggedIn: true, user } : {};
 
 export function authentication(state = initialState,
@@ -17,6 +17,18 @@ export function authentication(state = initialState,
         users: action.users,
       };
     case usersConstants.LOGIN_FAILURE:
+      return {};
+    case usersConstants.SWITCH_USER_REQUEST:
+      return {
+        loggingIn: true,
+        users: action.users,
+      };
+    case usersConstants.SWITCH_USER_SUCCESS:
+      return {
+        loggedIn: true,
+        users: action.users,
+      };
+    case usersConstants.SWITCH_USER_FAILURE:
       return {};
     case usersConstants.LOGOUT:
       return {};

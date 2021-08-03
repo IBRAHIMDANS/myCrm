@@ -31,6 +31,7 @@ export class UsersService {
     });
   }
 
+
   async getByEmail(email: string): Promise<Users> {
     return await this.usersRepository.createQueryBuilder("users")
       .where("users.email = :email")

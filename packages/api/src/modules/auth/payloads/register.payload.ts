@@ -1,10 +1,11 @@
 import {
+  IsBoolean,
   IsEmail,
   IsNotEmpty,
   IsOptional,
   IsString,
   MinLength,
-} from 'class-validator';
+} from "class-validator";
 import { ApiModelProperty } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
 
 export class RegisterPayload {
@@ -37,5 +38,10 @@ export class RegisterPayload {
   @IsOptional()
   @MinLength(5)
   password?: string;
+
+  @ApiModelProperty({ required: false })
+  @IsBoolean()
+  @IsOptional()
+  isAdmin?: boolean;
 
 }

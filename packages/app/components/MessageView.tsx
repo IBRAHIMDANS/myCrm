@@ -44,7 +44,7 @@ const Root = styled(Grid)`
 const MessageView = () => {
   const uDispatch = useDispatch();
   useEffect(() => {
-    uDispatch(messagesActions.getById(history?.query?.messageId));
+    if (history.query.messageId) uDispatch(messagesActions.getById(history?.query?.messageId));
   }, [history?.query?.messageId]);
 
   const { message } = useSelector(({ message }: any) => message);

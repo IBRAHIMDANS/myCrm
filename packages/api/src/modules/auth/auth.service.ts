@@ -15,6 +15,9 @@ export class AuthService {
   ) {
   }
 
+  async generateToken(id: string) {
+    return await this.usersService.get(id).then(async (res)=> await this.createToken(res));
+  }
 
   async createToken(user: Users): Promise<TokenModel> {
     return {
@@ -24,6 +27,7 @@ export class AuthService {
       lastName: user.lastName,
       email: user.email,
       phoneNumber: user.phoneNumber,
+      isAdmin: user.isAdmin,
       id: user.id,
     };
   }

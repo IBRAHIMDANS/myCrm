@@ -3,6 +3,7 @@ import MessageListWrapper from "./MessageListWrapper";
 import styled from "styled-components";
 import { Grid, Paper } from "@material-ui/core";
 import MessageView from "./MessageView";
+import SendMessageBtn from "./SendMessage";
 
 const Root = styled(Grid)`
 
@@ -15,6 +16,7 @@ const PaperStyled = styled(Paper)`
 const DesktopView = () => {
   return (
     <Root container>
+      <SendMessageBtn/>
       <Grid item>
         <PaperStyled>
           <MessageListWrapper/>

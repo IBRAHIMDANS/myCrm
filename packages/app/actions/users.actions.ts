@@ -9,6 +9,7 @@ export const usersActions = {
   register,
   logout,
   getAll,
+  switchUser,
   // getById,
   // update,
   // delete: _delete,
@@ -41,6 +42,35 @@ function login({ email, password }: Login) {
 
   function failure(error: any) {
     return { type: usersConstants.LOGIN_FAILURE, error };
+  }
+}
+function switchUser(id) {
+  return (dispatch: any) => {
+    dispatch(request({ id }));
+
+    usersService.switchUser(id)
+      .then(
+        (users: any) => {
+          dispatch(success(users));
+          history.push("/");
+        },
+        (error: any) => {
+          dispatch(failure(error.toString()));
+          dispatch(alertActions.error(error.toString()));
+        },
+      );
+  };
+
+  function request(users: any) {
+    return { type: usersConstants.SWITCH_USER_REQUEST, users };
+  }
+
+  function success(users: any) {
+    return { type: usersConstants.SWITCH_USER_SUCCESS, users };
+  }
+
+  function failure(error: any) {
+    return { type: usersConstants.SWITCH_USER_FAILURE, error };
   }
 }
 

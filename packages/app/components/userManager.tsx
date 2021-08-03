@@ -53,6 +53,8 @@ const UserManager = (props:any) => {
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setUser(event.target.value);
+    uDispatch(usersActions.switchUser(event.target.value))
+    window.location.reload()
   };
 
   const handleClose = () => {
@@ -79,7 +81,6 @@ const UserManager = (props:any) => {
         {users && users.map((user: Users) => <MenuItem
             key={user?.id}
             value={user?.id}
-            // disabled={userConnectedID !== user?.id}
           >
             <Grid container alignItems={"center"}>
               <Avatar><PersonIcon/></Avatar>
