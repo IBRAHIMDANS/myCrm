@@ -23,6 +23,7 @@ const FormGrid = styled(Grid)`
 
 
 const MessageForm = ({
+  label="Envoyer un message",
   handleClose = () => {
   }, message,
 }: any) => {
@@ -36,7 +37,7 @@ const MessageForm = ({
   const userConnectedID = useSelector((state: any) => state?.authentication?.user?.id);
   return (
     <StyledPaperForm className={"app-form"}>
-      <Typography variant={"h6"}>Envoyer un message</Typography>
+      <Typography variant={"h6"}>{label}</Typography>
       <Formik
         initialValues={MessageForm}
         validationSchema={Yup.object().shape({

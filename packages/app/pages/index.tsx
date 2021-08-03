@@ -8,7 +8,7 @@ import MessageForm from "../components/MessageForm";
 const Home = () => {
   return (
     <div className={styles.container}>
-      <PopoverButton />
+      <PopoverButton label={"Envoyé un Message"} />
       {isDesktop() ?
         <DesktopView/>
         :

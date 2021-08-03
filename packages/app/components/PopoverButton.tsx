@@ -17,6 +17,7 @@ const Root = styled(Grid)`
 `;
 const PopoverButton = ({
   title = "Envoyé un message",
+  label="Modifier Message",
   color,
   message,
   ...props
@@ -53,7 +54,7 @@ const PopoverButton = ({
         }}
         transitionDuration={1000}
       >
-        <MessageForm message={message} handleClose={() => handleClose()} />
+        <MessageForm message={message} handleClose={() => handleClose()} label={label} />
       </Popover>
     </Root>
   );

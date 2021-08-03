@@ -44,7 +44,12 @@ $ yarn dev-app
 ![img_6.png](shared/screen/img_6.png)
 5) Go To Message (only mobile)
 ![img_7.png](shared/screen/img_7.png)
+6) Suprimer Message
+![img.png](shared/screen/img_9.png)
+7) Modifier Message
+![img_1.png](shared/screen/img_10.png)
+
 # DEMO
-<p align="center">
+<p>
   <img alt="" src="./shared/demo.gif" />
 </p>

@@ -92,7 +92,7 @@ const MessageView = () => {
             />
           </Grid>
           <Grid item>
-            <PopoverButton message={message} title={"Modifier"}/>
+            <PopoverButton message={message} title={"Modifier"} label={"Modifier Message"}/>
           </Grid>
         </Grid>
         <NameTypography isread={message?.isRead}> {message?.receiverUser?.firstName} {message?.receiverUser?.lastName} </NameTypography>
