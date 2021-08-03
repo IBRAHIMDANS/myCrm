@@ -16,14 +16,16 @@ import { Login as LoginPayload } from "../../dto";
 import styled from "styled-components";
 import PersonIcon from "@material-ui/icons/Person";
 import Link from "next/link";
+import { PaperStyled } from "../register";
 
-const Root = styled(Grid)``;
-const PaperStyled = styled(Paper)`
-  min-width: 500px;
-  padding: 1em;
-  margin: 1em;
+const Root = styled(Grid)`
+  display: grid;
+  grid-template-rows: 100vh;
+  background: url('https://images.unsplash.com/photo-1587653811080-d5e7cd08c093?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80') fixed no-repeat;
+  background-size: cover;
 
 `;
+
 const ButtonStyled = styled(Button)`
   margin: 1em;
 `;
@@ -52,6 +54,7 @@ const Login: any = () => {
       alignItems={"center"}
       direction={"column"}
     >
+      <Grid item>
       <PaperStyled elevation={3} variant="outlined">
         <Grid container justifyContent={"center"}>
           <Avatar>
@@ -138,6 +141,7 @@ const Login: any = () => {
           <Link href="/register"><BlueLink>Register</BlueLink></Link>
         </Grid>
       </PaperStyled>
+      </Grid>
     </Root>
   );
 };

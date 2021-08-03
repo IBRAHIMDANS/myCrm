@@ -5,7 +5,8 @@ import { messagesActions } from "../actions";
 import { Messages } from "../dto";
 import { history } from "../utils/history";
 
-const MessageList = ({ messages, uDispatch }: any) => {
+const MessageList = ({ messages, uDispatch, isMobile }: any) => {
+
   return (<List>
     {messages?.length === 0 &&
     <Grid container justify={"center"}>
@@ -18,13 +19,19 @@ const MessageList = ({ messages, uDispatch }: any) => {
         message={message}
         button
         onClick={() => {
+
           !message.isRead &&
           uDispatch(messagesActions.update({
             id: message.id,
             isRead: true,
           }));
           !message.isRead && window.location.reload();
-          history.push(`?messageId=${message.id}`, undefined, { shallow: true });
+          if (isMobile) {
+            history.push(`message?messageId=${message.id}`, undefined, { shallow: true });
+          } else {
+            history.push(`?messageId=${message.id}`, undefined, { shallow: true });
+
+          }
         }}
       />,
     )}

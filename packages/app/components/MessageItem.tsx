@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Divider, Grid, ListItem, Typography } from "@material-ui/core";
-import { formatDistance, formatDistanceStrict } from "date-fns";
+import { formatDistanceStrict } from "date-fns";
 import { MessageIcon } from "./MessageIcon";
 import { Messages } from "../dto";
 import { fr } from "date-fns/locale";
@@ -27,6 +27,7 @@ const ContentTypography = styled(Typography)`
   text-overflow: ellipsis;
   word-wrap: break-word;
   max-height: 3.6em;
+  margin-top: 1em;
 `;
 
 
@@ -42,16 +43,20 @@ const MessageItem = (props: any) => {
   return (
     <ListItem {...props} divider>
       <Root container direction={"row"}>
-        <Grid item>
-          <Grid container alignItems={"center"}>
-            <MessageIcon isMessage={isMessage} isRead={isRead}/>
-            {(firstName || lastName) &&
-            <NameTypography isread={isRead}> {firstName || ""} {lastName || ""} </NameTypography>}
+        <Grid container justifyContent={"space-between"}>
+          <Grid item xs>
+            <Grid container alignItems={"center"}>
+              <MessageIcon isMessage={isMessage} isRead={isRead}/>
+              {(firstName || lastName) &&
+              <NameTypography isread={isRead}> {firstName || ""} {lastName || ""} </NameTypography>}
+            </Grid>
           </Grid>
-          {content && <ContentTypography>{content}</ContentTypography>}
+          <Grid item xs={3}>
+            <Typography>{formatDistanceStrict(new Date(), new Date(createdAt), { locale: fr })}</Typography>
+          </Grid>
         </Grid>
         <Grid item>
-          <Typography>{formatDistanceStrict(new Date(), new Date(createdAt), { locale: fr })}</Typography>
+          {content && <ContentTypography>{content}</ContentTypography>}
         </Grid>
         <Divider/>
       </Root>

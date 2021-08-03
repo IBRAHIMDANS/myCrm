@@ -1,10 +1,9 @@
 import React from "react";
 import MessageListWrapper from "./MessageListWrapper";
+import SendMessageBtn from "./SendMessage";
 
-const DesktopView = () => {
-  return (
-    <MessageListWrapper/>
-  );
+const MobileView = () => {
+  return (<MessageListWrapper isMobile/>);
 };
 
-export default DesktopView;
+export default MobileView;

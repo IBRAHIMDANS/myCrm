@@ -8,6 +8,7 @@ import SendMessageBtn from "../components/SendMessage";
 const Home = () => {
   return (
     <div className={styles.container}>
+      <SendMessageBtn/>
       {isDesktop() ?
         <DesktopView/>
         :

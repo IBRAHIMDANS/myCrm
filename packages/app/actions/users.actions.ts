@@ -44,7 +44,7 @@ function login({ email, password }: Login) {
     return { type: usersConstants.LOGIN_FAILURE, error };
   }
 }
-function switchUser(id) {
+function switchUser(id:string) {
   return (dispatch: any) => {
     dispatch(request({ id }));
 

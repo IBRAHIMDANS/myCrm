@@ -3,7 +3,7 @@ import MessageListWrapper from "./MessageListWrapper";
 import styled from "styled-components";
 import { Grid, Paper } from "@material-ui/core";
 import MessageView from "./MessageView";
-import SendMessageBtn from "./SendMessage";
+import { GlassMorphismPaper } from "../styles/GlassMorphism";
 
 const Root = styled(Grid)`
 
@@ -12,11 +12,11 @@ const PaperStyled = styled(Paper)`
   max-height: 100vh;
   overflow: auto;
   padding: 1em;
+  ${GlassMorphismPaper}
 `;
 const DesktopView = () => {
   return (
     <Root container>
-      <SendMessageBtn/>
       <Grid item>
         <PaperStyled>
           <MessageListWrapper/>

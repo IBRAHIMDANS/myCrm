@@ -11,18 +11,26 @@ import {
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { usersActions } from "../../actions";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import PersonIcon from "@material-ui/icons/Person";
 import Link from "next/link";
 import { Users } from "../../dto";
 import { phoneRegExp } from "../../utils/utils";
+import { GlassMorphismPaper } from "../../styles/GlassMorphism";
 
-const Root = styled(Grid)``;
+const Root = styled(Grid)`
+  display: grid;
+  grid-template-rows: 100vh;
+  background: url('https://images.unsplash.com/photo-1587653811080-d5e7cd08c093?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80') fixed no-repeat;
+  background-size: cover;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+`;
 
-const PaperStyled = styled(Paper)`
-  min-width: 500px;
+export const PaperStyled = styled(Paper)`
   padding: 1em;
   margin: 1em;
+  ${GlassMorphismPaper}
 `;
 
 const ButtonStyled = styled(Button)`

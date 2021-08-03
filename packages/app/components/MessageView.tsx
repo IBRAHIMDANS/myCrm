@@ -1,6 +1,13 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Grid, ListItem, Paper, Typography } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  Hidden,
+  ListItem,
+  Paper,
+  Typography,
+} from "@material-ui/core";
 import { NameTypography } from "./MessageItem";
 import { MessageIcon } from "./MessageIcon";
 import { format } from "date-fns";
@@ -9,9 +16,13 @@ import Markdown from "react-markdown";
 import { history } from "../utils/history";
 import { useDispatch, useSelector } from "react-redux";
 import { messagesActions } from "../actions";
+import { GlassMorphismPaper } from "../styles/GlassMorphism";
 
 const Root = styled(Grid)`
   padding: 0 0 1em 1em;
+  @media only screen and (max-width: 600px) {
+    padding: 1em;
+  }
 
   .userInfo {
     padding: 2em;
@@ -41,11 +52,23 @@ const Root = styled(Grid)`
   }
 `;
 // const getMessage = (messages: (Messages[] | undefined)): any => messages?.find(item => item?.id === history?.query?.messageId);
+const StyledButton = styled(Button)`
+  width: 173px;
+  height: 67px;
+  background: #cef0ff;
+  border: 1px solid #7bdef3;
+  box-sizing: border-box;
+  border-radius: 5px;
+`;
+const StyledPaper = styled(Paper)`
+  ${GlassMorphismPaper}
+`;
 const MessageView = () => {
   const uDispatch = useDispatch();
+
   useEffect(() => {
     if (history.query.messageId) uDispatch(messagesActions.getById(history?.query?.messageId));
-  }, [history?.query?.messageId]);
+  }, [typeof window !== 'undefined' && history.query?.messageId]);
 
   const { message } = useSelector(({ message }: any) => message);
   if (!message) return (
@@ -58,7 +81,7 @@ const MessageView = () => {
       ✉️ </Typography></Grid>);
   return (
     <Root container direction={"column"}>
-      <Paper className={"userInfo"}>
+      <StyledPaper className={"userInfo"}>
         <NameTypography isread={message?.isRead}> {message?.receiverUser?.firstName} {message?.receiverUser?.lastName} </NameTypography>
         <ListItem
           button
@@ -74,8 +97,8 @@ const MessageView = () => {
           component="a"
           href={`tel:${message?.receiverUser?.phoneNumber}`}
         >{message?.receiverUser?.phoneNumber} </ListItem>
-      </Paper>
-      <Paper className={"userInfo"}>
+      </StyledPaper>
+      <StyledPaper className={"userInfo"}>
         <Grid container spacing={2}>
           <MessageIcon isMessage={message?.isMessage} isRead={message?.isRead}/>
           <NameTypography isread={message?.isRead}> {message?.receiverUser?.firstName} {message?.receiverUser?.lastName} </NameTypography>
@@ -86,7 +109,14 @@ const MessageView = () => {
             .toUpperCase()}</Typography>
         </Grid>
         <Markdown className={"app-content"}>{message?.content}</Markdown>
-      </Paper>
+      </StyledPaper>
+      <Hidden smUp>
+        <Grid container justifyContent={"flex-end"}>
+          <StyledButton onClick={() => history.back()}>
+            Revenir en arriere
+          </StyledButton>
+        </Grid>
+      </Hidden>
     </Root>
   );
 };
