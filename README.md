@@ -16,6 +16,7 @@ app => Nest.JS with Redux for store 🔥  [UI]
 ```
 # Start Projet & Script
 ```shell script
+⚠️ Create BDD Postgres with name => "CrmApp" or launch docker
 $ yarn 
 $ cp packages/api/.env.sample packages/api/.env
 $ yarn bootstrap
@@ -25,8 +26,25 @@ $ yarn dev-api
 $ yarn dev-app
 ```
 ### Links
-
-# SCREENSHOT
+1) Login
+![img.png](shared/screen/img.png)
+-- [Version Mobile]
+![img_2.png](shared/screen/img_2.png)
+2) Register
+![img_1.png](shared/screen/img_1.png)
+-- [Version Mobile]
+![img_8.png](shared/screen/img_8.png)
+3) Home Message
+![img_4.png](shared/screen/img_4.png)
+-- [Version Mobile]
+![img_3.png](shared/screen/img_3.png)
+4) Switch User
+![img_5.png](shared/screen/img_5.png)
+-- [Version Mobile]
+![img_6.png](shared/screen/img_6.png)
+5) Go To Message (only mobile)
+![img_7.png](shared/screen/img_7.png)
+# DEMO
 <p align="center">
-  <img alt="" src="./assets/demo.gif" />
+  <img alt="" src="./shared/demo.gif" />
 </p>
