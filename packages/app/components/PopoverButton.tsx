@@ -16,7 +16,7 @@ const Root = styled(Grid)`
   }
 `;
 const PopoverButton = ({
-  title = "Envoyé un message",
+  title = "Envoyer un message",
   label="Modifier Message",
   color,
   message,
