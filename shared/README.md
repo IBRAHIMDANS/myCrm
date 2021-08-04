@@ -1,6 +1,4 @@
-# Test technique "Développeur Fullstack" @ wethenew
-
---- 
+# CRM APP
 
 ## Présentation et contexte de l'application :
 
@@ -76,11 +74,3 @@ __Il s'agit donc naturellement de développer à la fois une API ainsi qu'un cli
 ### Contenu
 
 Les maquettes sont fournies au format [PDF](maquettes/wtn-crm-fe-test.pdf) et au format [FIGMA](https://www.figma.com/) et permettent d'avoir un aperçu du résultat attendu et de récupérer les éventuels assets.
-
-### Rendu
-
----
-
-Tu pourras rendre ton projet, soit via un projet Github soit via dossier zip.
-
-Si tu choisis le format Github, ne mentionne pas Wethenew. Tu pourras faire passer ça pour un projet perso ;) On compte sur toi !
