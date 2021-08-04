@@ -84,5 +84,3 @@ Les maquettes sont fournies au format [PDF](maquettes/wtn-crm-fe-test.pdf) et au
 Tu pourras rendre ton projet, soit via un projet Github soit via dossier zip.
 
 Si tu choisis le format Github, ne mentionne pas Wethenew. Tu pourras faire passer ça pour un projet perso ;) On compte sur toi !
-
-L'équipe tech Wethenew

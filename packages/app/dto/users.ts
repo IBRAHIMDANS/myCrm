@@ -8,5 +8,6 @@ type Users = {
   confirmPassword?: string
   deletedAt?: unknown
   phoneNumber?: string
+  isAdmin?: boolean
 }
 export default Users;
