@@ -45,7 +45,7 @@
     "@nestjs/typeorm": "^8.0.1",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
-    "crypto-js": "^4.1.1",
+    "crypto-js": "^4.2.0",
     "helmet": "^4.6.0",
     "husky": "^7.0.1",
     "lint-staged": "^11.0.1",
