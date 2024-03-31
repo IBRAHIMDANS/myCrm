@@ -61,7 +61,7 @@
     "rxjs": "^7.2.0",
     "serve-favicon": "^2.5.0",
     "swagger-ui-express": "^4.1.6",
-    "typeorm": "^0.2.34"
+    "typeorm": "^0.3.0"
   },
   "devDependencies": {
     "shx": "^0.3.3",
